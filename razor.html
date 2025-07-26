@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta property="og:title" content="Razor">
+    <meta property="og:description" content="Your number 1 solution for maximum security.">
+    <meta property="og:url" content="https://razorfn.xyz">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://razorfn.xyz/images/razor_transparent.png">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Razor | UD</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -234,7 +241,7 @@
       border: none;
       padding: 1rem 2rem;
       border-radius: 50px;
-      font-weight: 600;
+      font-weight: 480;
       font-size: 1rem;
       color: #fff;
       cursor: pointer;
@@ -268,6 +275,47 @@
     }
 
     .btn:active {
+      transform: scale(0.95);
+    }
+
+    .explore {
+      background: linear-gradient(45deg, #d82bad, #d42e94f6);
+      border: none;
+      padding: 0.89rem 2rem;
+      border-radius: 13px;
+      font-weight: 500;
+      font-size: 1rem;
+      color: #fff;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      z-index: 2;
+      font-family: Inter;
+    }
+
+    .explore::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      transition: left 0.3s ease;
+      z-index: -1;
+    }
+
+    .explore:hover::before {
+      left: 0;
+    }
+
+    .explore:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(224, 12, 214, 0.4);
+    }
+
+    .explore:active {
       transform: scale(0.95);
     }
 
@@ -511,12 +559,17 @@
     <h1>Razor, always secure.</h1>
     <p>We’re Here Because Of You.</p>
 
+    <div class="explore-products">
+      <button onclick="window.location.href='explore.html'" class="explore">Explore Products</button>
+    </div>
+
+
   <div class="container">
     <div class="cards-grid">
       <div class="card">
         <h2>Perm Spoofer</h2>
         <p>Effectively hides hardware IDs for flawless, untraceable use.</p>
-        <button onclick="window.location.href='purchase/purchase.html'" class="btn">Buy</button> <!--add the buyin' system coz idw to do it -->
+        <button onclick="window.location.href='purchase/spoofer.html'" class="btn">Buy</button> <!--add the buyin' system coz idw to do it -->
       </div>
 
       <div class="card">

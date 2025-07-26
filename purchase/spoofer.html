@@ -309,16 +309,26 @@
       </select>
 
       <div class="coupon-row">
-        <input type="text" placeholder="Enter Coupon Code" class="coupon"/>
-        <button class="redeem-btn"><i class="fa fa-ticket"></i> Redeem</button>
+        <input type="text" placeholder="Enter Coupon Code" class="coupon" />
+        <button id="redeem-btn" class="redeem-btn"><i class="fa fa-ticket"></i> Redeem</button>
       </div>
 
+      <div id="coupon-message" style="color: red; font-weight: 500; min-height: 1.2em;"></div>
+
+
       <button><i class="fa fa-cart-plus"></i> Add to Cart</button>
-      <button style="background:#c2162c;"><i class="fa fa-bolt"></i> Buy Now</button>
+      <button style="background:#cc02ff;"><i class="fa fa-bolt"></i> Buy Now</button>
     </div>
   </div>
 
   <script>
+    const validCoupons = [
+      "RAZOR10",
+      "FREEUD",
+      "SUMMER25",
+      "GODMODE",
+      "ULTRA2025"
+    ];
     function updatePrice() {
       const variant = document.getElementById("variant");
       const selectedPrice = variant.value;
@@ -339,6 +349,26 @@
       }
     }
     window.onload = createParticles;
+    document.getElementById("redeem-btn").addEventListener("click", function () {
+      const couponInput = document.querySelector(".coupon").value.trim().toUpperCase();
+      const message = document.getElementById("coupon-message");
+    
+      if (couponInput === "") {
+        message.textContent = "";
+        return;
+      }
+    
+      if (validCoupons.includes(couponInput)) {
+        message.style.color = "limegreen";
+        message.textContent = "Coupon applied!";
+        // Optional: Add discount logic here if needed.
+      } else {
+        message.style.color = "red";
+        message.textContent = "Invalid coupon code.";
+      }
+    });
+
+
   </script>
 </body>
 </html>
