@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Razor | Explore Products</title>
+  <meta property="og:title" content="Razor">
+  <meta property="og:description" content="Your number 1 solution for maximum security.">
+  <meta property="og:url" content="https://razorfn.xyz">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://razorfn.xyz/images/razor_transparent.png">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .hero {
+      padding: 5rem 2rem;
+      text-align: center;
+      background: radial-gradient(circle at center, rgba(255, 86, 164, 0.1), transparent 80%), linear-gradient(135deg, #3a0040, #9711a3);
+      color: #fff;
+      animation: pulse-bg 10s ease infinite;
+    }
+
+    @keyframes pulse-bg {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 15px rgba(255, 86, 164, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #ddd;
+      opacity: 0.85;
+    }
+
+    .products-section {
+      padding: 4rem 2rem;
+      max-width: 1300px;
+      margin: auto;
+    }
+
+    .products-section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: #ff4fc6;
+      text-shadow: 0 0 10px rgba(255, 79, 198, 0.2);
+    }
+
+    .product-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .product-item {
+      background: linear-gradient(145deg, #141414, #1e1e1e);
+      border-radius: 15px;
+      width: 300px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 20px rgba(255, 86, 164, 0.1);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .product-item:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(255, 86, 164, 0.25);
+    }
+
+    .product-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    .product-item-content {
+      padding: 1.2rem;
+    }
+
+    .product-item-content h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.3rem;
+      color: #ff4fc6;
+    }
+
+    .product-item-content p {
+      margin: 0;
+      color: #bbb;
+      font-size: 1rem;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+      background: #0a0a0a;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .product-item {
+        width: 100%;
+        max-width: 350px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1>Explore Products</h1>
+    <p>Your number one solution for maximum security.</p>
+  </div>
+
+  <section class="products-section">
+    <h2>People Also Bought</h2>
+    <div class="product-list">
+      <div class="product-item">
+        <img src="../images/unban.png" alt="Account Unban">
+        <div class="product-item-content">
+          <h3>Account Unban</h3>
+          <p>Starting at $15.99</p>
+        </div>
+      </div>
+      <div class="product-item">
+        <img src="../images/faith.png" alt="Faithless AI Aim 2.0">
+        <div class="product-item-content">
+          <h3>Faithless AI Aim 2.0</h3>
+          <p>Starting at $6.99</p>
+        </div>
+      </div>
+      <div class="product-item">
+        <img src="../images/lunar.jpg" alt="CS2 Divergence">
+        <div class="product-item-content">
+          <h3>CS2 Divergence</h3>
+          <p>Starting at $0.99</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    &copy; 2025 RazorFN. All rights reserved.
+  </footer>
+
+</body>
+</html>
