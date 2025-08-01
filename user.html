@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>YourCard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(6px) brightness(0.6);
+      z-index: -1;
+    }
+
+    .card {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(20, 20, 20, 0.6);
+      padding: 30px;
+      border-radius: 16px;
+      text-align: center;
+      color: #fff;
+      width: 300px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #555;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #bbb;
+      margin-bottom: 20px;
+    }
+
+    .icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .icons a {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
+    }
+
+    .icons a:hover {
+      transform: scale(1.2);
+    }
+
+    .icons img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      filter: invert(1);
+    }
+
+    .now-playing {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      z-index: 1000;
+      animation: pulse 2s infinite;
+      transition: opacity 0.5s ease;
+    }
+
+    .now-playing img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      animation: spin 3s linear infinite;
+    }
+
+    .now-playing a {
+      color: #00eaff;
+      text-decoration: none;
+    }
+
+    .now-playing a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 8px rgba(0, 234, 255, 0.5); }
+      50% { box-shadow: 0 0 16px rgba(0, 234, 255, 1); }
+      100% { box-shadow: 0 0 8px rgba(0, 234, 255, 0.5); }
+    }
+
+    /* Auto-hide after 10s */
+    .now-playing.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .now-playing:hover {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background video with audio after interaction -->
+  <video autoplay muted loop playsinline class="video-bg" id="bgVideo">
+    <source src="https://files.catbox.moe/zb87gk.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+
+  <!-- Overlay -->
+  <div class="overlay"></div>
+
+  <!-- Card -->
+  <div class="card">
+    <img src="assets/avatar.png" alt="Profile Picture" class="avatar">
+    <h1>@dogepoleon</h1>
+    <p>tuff as shit</p>
+    <div class="icons">
+      <a href="https://t.me/teleisretarded" target="_blank">
+        <img src="assets/icons/telegram.png" alt="Telegram">
+      </a>
+      <a href="https://discord.gg/nJdjVUmv" target="_blank">
+        <img src="assets/icons/discord.png" alt="Discord">
+      </a>
+      <a href="https://github.com/1336py" target="_blank">
+        <img src="assets/icons/github.png" alt="GitHub">
+      </a>
+    </div>
+  </div>
+
+
+  <div class="now-playing" id="nowPlaying">
+    <img src="assets/icons/music.png" alt="Track Art">
+    <span>
+      Currently Playing:
+      <a href="https://www.youtube.com/watch?v=w64xSykQSmI" target="_blank" rel="noopener noreferrer">
+        Enemy's End - Loat
+      </a>
+    </span>
+  </div>
+
+  <!-- Unmute video on first click -->
+  <script>
+    const video = document.getElementById("bgVideo");
+
+    // Required to allow autoplay initially, then unmute
+    document.addEventListener("click", () => {
+      video.muted = false;
+      video.currentTime = 0;
+      video.play().catch(e => console.log("Autoplay failed:", e));
+    }, { once: true });
+
+    // Auto-hide after 10 seconds
+    setTimeout(() => {
+      document.getElementById("nowPlaying").classList.add("hide");
+    }, 10000);
+  </script>
+
+</body>
+</html>
