@@ -228,34 +228,9 @@
 
   <section class="products-section">
     <h2>Products</h2>
-    <div class="product-list">
-      <a href="purchase/unban.html" class="product-item">
-        <img src="images/unban.png" alt="Account Unban">
-        <div class="product-item-content">
-          <h3>Account Unban</h3>
-          <p>Starting at $15.99</p>
-        </div>
-      </a>
-      <a href="purchase/faithless.html" class="product-item">
-        <img src="images/faith.png" alt="Faithless AI Aim 2.0">
-        <div class="product-item-content">
-          <h3>Faithless AI Aim 2.0</h3>
-          <p>Starting at $6.99</p>
-        </div>
-      </a>
-      <a href="purchase/cs2.html" class="product-item">
-        <img src="images/lunar.jpg" alt="CS2 Divergence">
-        <div class="product-item-content">
-          <h3>CS2 Divergence</h3>
-          <p>Starting at $0.99</p>
-        </div>
-      </a>
-    </div>
+    <div class="product-list" id="products"></div>
   </section>
 
-  <footer class="footer">
-    
-  </footer>
 
   <script>
     window.addEventListener('scroll', function() {
@@ -276,6 +251,76 @@
     }
 
     document.addEventListener('DOMContentLoaded', createParticles);
+
+    async function loadProducts(){
+    
+    const response =
+    await fetch("purchase/products.json");
+    
+    
+    const products =
+    await response.json();
+    
+    
+    const container =
+    document.getElementById("products");
+    
+    
+    
+    products.forEach(product=>{
+    
+    
+    container.innerHTML += `
+    
+    
+    <a 
+    href="purchase/product.html?id=${product.id}"
+    class="product-item">
+    
+    
+    <img 
+    src="${product.images[0]}"
+    alt="${product.title}"
+    >
+    
+    
+    
+    <div class="product-item-content">
+    
+    
+    <h3>
+    
+    ${product.title}
+    
+    </h3>
+
+
+
+    <p>
+    
+    Starting at $${product.startingPrice}
+    
+    </p>
+
+
+    </div>
+
+
+    </a>
+
+
+    `;
+
+
+
+    });
+
+
+    }
+
+
+
+    loadProducts();
   </script>
 </body>
 </html>

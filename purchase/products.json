@@ -1,0 +1,83 @@
+[
+  {
+    "id": "spoofer",
+    "title": "Razor Permanent HWID Spoofer",
+    "subtitle": "Maximum Security",
+    "description": "Permanent HWID spoofing with frequent updates.",
+    "images": [ "images/perm menu.png", "images/spoof.png" ],
+    "startingPrice": 9.99,
+    "category": "Spoofers",
+    "featured": true,
+
+    "variants": [
+      {
+        "name": "One-Time (48h)",
+        "price": 9.99
+      },
+      {
+        "name": "Lifetime",
+        "price": 24.99
+      }
+    ],
+
+    "rating": 5,
+    "related": [
+      "faithless",
+      "unban"
+    ]
+  },
+
+  {
+    "id": "unban",
+    "title": "Account Unban Method",
+    "subtitle": "Complete Access",
+    "description": "1-time purchase working for any game, forever.",
+    "images": [ "images/unban.png", "images/unban email.png" ],
+    "startingPrice": 25.99,
+    "category": "Extra",
+    "featured": true,
+
+    "variants": [
+      {
+        "name": "Lifetime",
+        "price": 24.99
+      }
+    ],
+
+    "rating": 5,
+    "related": [
+      "spoofer",
+      "unban"
+    ]
+  },
+
+
+  {
+    "id": "faithless",
+    "title": "Faithless AI Aim 2.0",
+    "subtitle": "AI Assistance",
+    "description": "Computer vision powered aiming solution.",
+    "images": [ "images/faithless new.png", "images/faithasd.png" ],
+    "startingPrice": 6.99,
+    "category": "AI",
+    "featured": true,
+
+    "variants": [
+      {
+        "name": "1 Month",
+        "price": 6.99
+      },
+      {
+        "name": "Lifetime",
+        "price": 49.99
+      }
+    ],
+
+    "rating": 5,
+    "related": [
+      "spoofer",
+      "unban"
+    ]
+  }
+]
+

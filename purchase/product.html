@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Razor | Product</title>
+
+    <meta property="og:title" content="Razor">
+    <meta property="og:description" content="Your number 1 solution for maximum security.">
+    <meta property="og:url" content="https://razorfn.xyz">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://razorfn.xyz/images/razor_transparent.png">
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+    <style>
+        * {
+        box-sizing:border-box;
+        }
+        
+        
+        body {
+        
+        margin:0;
+        
+        background:#0a0a0a;
+        
+        font-family:'Montserrat',sans-serif;
+        
+        color:white;
+        
+        overflow-x:hidden;
+        
+        }
+        
+        
+        
+        /* BACKGROUND */
+        
+        .bg-animation {
+        
+        position:fixed;
+        
+        inset:0;
+        
+        z-index:0;
+        
+        background:
+        radial-gradient(circle at 20% 50%,rgba(187,64,255,.1),transparent 50%),
+        radial-gradient(circle at 80% 20%,rgba(255,86,164,.1),transparent 50%),
+        radial-gradient(circle at 40% 80%,rgba(139,0,255,.1),transparent 50%);
+        
+        }
+        
+        
+        
+        .particles {
+        
+        position:fixed;
+        
+        inset:0;
+        
+        z-index:1;
+        
+        pointer-events:none;
+        
+        }
+        
+        
+        
+        .particle {
+        
+        position:absolute;
+        
+        width:3px;
+        
+        height:3px;
+        
+        background:#ff4fc6;
+        
+        border-radius:50%;
+        
+        animation:float 15s linear infinite;
+        
+        opacity:0;
+        
+        }
+        
+        
+        
+        @keyframes float {
+        
+        0%{
+        transform:translateY(100vh);
+        opacity:0;
+        }
+        
+        10%{
+        opacity:1;
+        }
+        
+        90%{
+        opacity:1;
+        }
+        
+        100%{
+        transform:translateY(-100vh);
+        opacity:0;
+        }
+        
+        }
+        
+        
+        
+        /* MAIN */
+        
+        
+        .container {
+        
+        max-width:1200px;
+        
+        margin:3rem auto;
+        
+        padding:0 2rem;
+        
+        display:flex;
+        
+        gap:2rem;
+        
+        position:relative;
+        
+        z-index:5;
+        
+        }
+        
+        
+        
+        .product-left {
+        
+        flex:2;
+        
+        background:linear-gradient(135deg,#111,#1b1b1b);
+        
+        border-radius:20px;
+        
+        padding:1.5rem;
+        
+        border:1px solid rgba(255,255,255,.08);
+        
+        box-shadow:0 0 20px rgba(255,79,198,.15);
+        
+        }
+        
+        
+        
+        .product-left img {
+        
+        width:100%;
+        
+        max-height:600px;
+        
+        object-fit:contain;
+        
+        border-radius:15px;
+        
+        }
+        
+        
+        
+        .product-right {
+        
+        flex:1;
+        
+        background:linear-gradient(135deg,#161616,#202020);
+        
+        border-radius:20px;
+        
+        padding:2rem;
+        
+        display:flex;
+        
+        flex-direction:column;
+        
+        gap:1rem;
+        
+        }
+        
+        
+        
+        .product-right h1 {
+        
+        font-size:1.8rem;
+        
+        margin:0;
+        
+        }
+        
+        
+        
+        .price {
+        
+        font-size:1.5rem;
+        
+        color:#ff4fc6;
+        
+        }
+        
+        
+        
+        .stars {
+        
+        color:#ff92e6;
+        
+        font-size:1.3rem;
+        
+        }
+        
+        
+        
+        select,
+        input,
+        button {
+        
+        
+        padding:.75rem;
+        
+        border-radius:10px;
+        
+        border:none;
+        
+        font-family:'Montserrat';
+        
+        font-weight:600;
+        
+        }
+        
+        
+        
+        select,
+        input {
+        
+        background:#111;
+        
+        color:white;
+        
+        border:1px solid #333;
+        
+        }
+        
+        
+        
+        button {
+        
+        cursor:pointer;
+        
+        background:#222;
+        
+        color:white;
+        
+        transition:.3s;
+        
+        }
+        
+        
+        
+        button:hover {
+        
+        background:#bf33e6;
+        
+        transform:scale(1.03);
+        
+        }
+        
+        
+        
+        .buy {
+        
+        background:#ff4fc6;
+        
+        }
+        
+        
+        
+        .buy:hover {
+        
+        background:#e045b2;
+        
+        }
+        
+        
+        
+        .coupon-row {
+        
+        display:flex;
+        
+        gap:.5rem;
+        
+        }
+        
+        
+        
+        .coupon {
+        
+        flex:1;
+        
+        }
+        
+        
+        
+        #coupon-message {
+        
+        min-height:20px;
+        
+        }
+        
+        
+        
+        .people-also-bought {
+        
+        margin-top:2rem;
+        
+        }
+        
+        
+        
+        .product-list {
+        
+        display:flex;
+        
+        gap:1rem;
+        
+        overflow-x:auto;
+        
+        }
+        
+        
+        
+        .product-list-item {
+        
+        background:#111;
+        
+        padding:1rem;
+        
+        border-radius:12px;
+        
+        min-width:220px;
+        
+        border:1px solid rgba(255,255,255,.05);
+        
+        transition:.3s;
+        
+        }
+        
+        
+        
+        .product-list-item:hover {
+        
+        transform:translateY(-5px);
+        
+        box-shadow:0 0 15px rgba(255,79,198,.3);
+        
+        }
+        
+        
+        
+        .product-list-item img {
+        
+        width:100%;
+        
+        height:130px;
+        
+        object-fit:cover;
+        
+        border-radius:10px;
+        
+        }
+        
+        
+        
+        @media(max-width:900px){
+        
+        .container{
+        
+        flex-direction:column;
+        
+        }
+        
+        }
+        
+        
+        
+        .product-gallery {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 350px;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+        
+        .product-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.45s ease;
+        }
+        
+        .product-slide.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        
+            background: rgba(0,0,0,0.6);
+            color: white;
+        
+            border: none;
+            font-size: 16px;
+        
+            width: 45px;
+            height: 45px;
+        
+            border-radius: 50%;
+        
+            cursor: pointer;
+            z-index: 5;
+        
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        
+            padding: 0;
+            line-height: 1;
+        }
+        
+        .slide-btn:hover {
+            background: rgba(194,22,180,0.8);
+        }
+        
+        .prev {
+            left: 15px;
+        }
+        
+        .next {
+            right: 15px;
+        }
+        
+        .related-image {
+            width:100%;
+            height:130px;
+            object-fit:cover;
+            border-radius:10px;
+        }
+    </style>
+
+
+</head>
+
+
+
+<body>
+
+
+    <div class="bg-animation"></div>
+
+    <div class="particles" id="particles"></div>
+
+
+
+    <div class="container">
+
+
+        <div class="product-left">
+
+
+            <div class="product-gallery" id="product-gallery">
+
+            </div>
+
+
+            <div class="people-also-bought">
+
+
+                <h3>
+People have also bought:
+</h3>
+
+
+                <div class="product-list" id="related-products">
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <div class="product-right">
+
+
+            <h1 id="product-title">
+Loading...
+</h1>
+
+
+            <p id="product-description"></p>
+
+
+
+            <div class="price" id="price-display">
+
+            </div>
+
+
+
+            <div class="stars" id="stars">
+
+            </div>
+
+
+
+            <label>
+                Variants:
+            </label>
+
+
+            <select id="variant">
+
+            </select>
+
+
+
+            <div class="coupon-row">
+
+
+                <input class="coupon" id="coupon" placeholder="Enter Coupon Code">
+
+
+                <button onclick="redeemCoupon()">
+
+                    <i class="fa fa-ticket"></i> Redeem
+
+                </button>
+
+
+            </div>
+
+
+            <div id="coupon-message"></div>
+
+
+
+            <button>
+
+                <i class="fa fa-cart-plus"></i> Add to Cart
+
+            </button>
+
+
+
+            <button class="buy">
+
+                <i class="fa fa-bolt"></i> Buy Now
+
+            </button>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+    <script>
+        let product;
+        
+        
+        
+        const coupons = [
+        
+        "RAZOR10",
+        "FREEUD",
+        "SUMMER25",
+        "GODMODE",
+        "ULTRA2025"
+        
+        ];
+        
+        
+        
+        
+        
+        async function loadProduct(){
+        
+        
+        const params =
+        new URLSearchParams(window.location.search);
+        
+        
+        const id =
+        params.get("id");
+        
+        
+        
+        const response =
+        await fetch("products.json");
+        
+        
+        
+        const products =
+        await response.json();
+        
+        
+        
+        product =
+        products.find(p=>p.id===id);
+        
+        
+        
+        if(!product){
+        
+        document.body.innerHTML =
+        "<h1 style='text-align:center'>Product not found</h1>";
+        
+        return;
+        
+        }
+        
+        
+        
+        
+        document.title =
+        product.title + " | Razor Shop";
+        
+        
+        
+        document.getElementById("product-title")
+        .textContent =
+        product.title;
+        
+        
+        
+        document.getElementById("product-description")
+        .textContent =
+        product.description;
+        
+        
+        
+        const gallery = document.getElementById("product-gallery");
+        
+        gallery.innerHTML = product.images.map((img,index)=>`
+        
+        <img 
+        src="../${img}" 
+        class="product-slide ${index === 0 ? "active" : ""}"
+        >
+        
+        `).join("") + `
+        
+        <button class="slide-btn prev" onclick="changeSlide(-1)">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        
+        <button class="slide-btn next" onclick="changeSlide(1)">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        
+        `;
+        
+        
+        
+        document.getElementById("price-display")
+        .textContent =
+        "$" + product.startingPrice.toFixed(2);
+        
+        
+        
+        loadVariants();
+        
+        loadStars();
+        
+        loadRelated();
+        
+        
+        
+        }
+        
+        
+        
+        
+        
+        function loadVariants(){
+        
+        
+        const select =
+        document.getElementById("variant");
+        
+        
+        
+        if(!product.variants)
+        return;
+        
+        
+        
+        product.variants.forEach(v=>{
+        
+        
+        let option =
+        document.createElement("option");
+        
+        
+        option.value =
+        v.price;
+        
+        
+        
+        option.textContent =
+        `${v.name} - $${v.price.toFixed(2)}`;
+        
+        
+        
+        select.appendChild(option);
+        
+        
+        });
+        
+        
+        
+        select.onchange=function(){
+        
+        
+        document.getElementById("price-display")
+        .textContent =
+        "$"+this.value;
+        
+        
+        };
+        
+        
+        }
+        
+        
+        
+        
+        function loadStars(){
+        
+        
+        let stars="";
+        
+        
+        
+        for(let i=0;i<(product.rating || 5);i++){
+        
+        
+        stars +=
+        '<i class="fa fa-star"></i>';
+        
+        }
+        
+        
+        document.getElementById("stars")
+        .innerHTML=stars;
+        
+        
+        }
+        
+        
+        
+        
+        
+        
+        async function loadRelated(){
+        
+        
+        if(!product.related)
+        return;
+        
+        
+        
+        const response =
+        await fetch("products.json");
+        
+        
+        
+        const products =
+        await response.json();
+        
+        
+        
+        const box =
+        document.getElementById("related-products");
+        
+        
+        
+        product.related.forEach(id=>{
+        
+        
+        const p =
+        products.find(x=>x.id===id);
+        
+        
+        
+        if(!p)
+        return;
+        
+        
+        
+        box.innerHTML += `
+        
+        
+        <div class="product-list-item"
+        
+        onclick="location.href='product.html?id=${p.id}'">
+        
+        
+        <img 
+            src="../${p.images[0]}" 
+            class="related-image"
+        >
+        
+        
+        <p>
+        <strong>${p.title}</strong>
+        </p>
+        
+        
+        <p>
+        Starting at $${p.startingPrice}
+        </p>
+        
+        
+        </div>
+        
+        
+        `;
+        
+        
+        
+        });
+        
+        
+        }
+        
+        
+        
+        
+        
+        function redeemCoupon(){
+        
+        
+        const input =
+        document.getElementById("coupon")
+        .value
+        .trim()
+        .toUpperCase();
+        
+        
+        
+        const message =
+        document.getElementById("coupon-message");
+        
+        
+        
+        if(coupons.includes(input)){
+        
+        
+        message.style.color="limegreen";
+        
+        message.textContent =
+        "Coupon applied!";
+        
+        
+        }
+        
+        else{
+        
+        
+        message.style.color="red";
+        
+        message.textContent =
+        "Invalid coupon code.";
+        
+        
+        }
+        
+        
+        
+        }
+        
+        
+        
+        
+        
+        
+        function createParticles(){
+        
+        
+        const container =
+        document.getElementById("particles");
+        
+        
+        
+        for(let i=0;i<50;i++){
+        
+        
+        let p =
+        document.createElement("div");
+        
+        
+        p.className="particle";
+        
+        
+        p.style.left =
+        Math.random()*100+"%";
+        
+        
+        p.style.animationDelay =
+        Math.random()*15+"s";
+        
+        
+        p.style.animationDuration =
+        (10+Math.random()*10)+"s";
+        
+        
+        
+        container.appendChild(p);
+        
+        
+        }
+        
+        
+        }
+        
+        
+        
+        
+        createParticles();
+        
+        loadProduct();
+        
+        
+        
+        let currentSlide = 0;
+        
+        function changeSlide(direction){
+        
+            const slides = document.querySelectorAll(".product-slide");
+        
+            if(!slides.length) return;
+        
+        
+            slides[currentSlide].classList.remove("active");
+        
+        
+            currentSlide += direction;
+        
+        
+            if(currentSlide >= slides.length){
+                currentSlide = 0;
+            }
+        
+            if(currentSlide < 0){
+                currentSlide = slides.length - 1;
+            }
+        
+        
+            slides[currentSlide].classList.add("active");
+        }
+    </script>
+
+
+</body>
+
+</html>

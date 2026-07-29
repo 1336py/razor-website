@@ -532,6 +532,14 @@
     text-decoration: underline;
   }
 
+  .product-image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 1rem;
+  }
+
   </style>
 
   
@@ -565,25 +573,7 @@
 
 
   <div class="container">
-    <div class="cards-grid">
-      <div class="card">
-        <h2>Perm Spoofer</h2>
-        <p>Effectively hides hardware IDs for flawless, untraceable use.</p>
-        <button onclick="window.location.href='purchase/spoofer.html'" class="btn">Purchase</button> <!--add the buyin' system coz idw to do it -->
-      </div>
-
-      <div class="card">
-        <h2>AI Aimbot</h2>
-        <p>Precision targeting with AI for flawless, automated aiming and undetectable.</p>
-        <button onclick="window.location.href='purchase/faithless.html'" class="btn">Purchase</button>
-      </div>
-
-      <div class="card">
-        <h2>Account Unban</h2>
-        <p>Reliable permanent unban service for uninterrupted play in any game.</p>
-        <button onclick="window.location.href='purchase/unban.html'" class="btn">Purchase</button>
-      </div>
-    </div>
+  <div class="cards-grid" id="featured-products"></div>
 
     <!-- touch this = getting raped by daddy Loukboom himself -->
     <div class="features">
@@ -724,6 +714,67 @@
       popup.style.pointerEvents = 'none';
     }, 6000);
   });
+
+
+    async function loadFeaturedProducts(){
+    
+        const response = await fetch("purchase/products.json");
+    
+        const products = await response.json();
+    
+        const container = document.getElementById("featured-products");
+    
+    
+        products
+        .filter(product => product.featured)
+        .forEach(product => {
+        
+            container.innerHTML += `
+        
+            <div class="card">
+            
+                <img 
+                    src="${product.images[0]}" 
+                    alt="${product.title}"
+                    class="product-image"
+                >
+            
+                <h2>
+                    ${product.title}
+                </h2>
+              
+              
+                <p>
+                    ${product.description}
+                </p>
+              
+              
+                <button 
+                    onclick="location.href='purchase/product.html?id=${product.id}'"
+                    class="btn">
+              
+                    Purchase
+              
+                </button>
+              
+            </div>
+          
+            `;
+          
+        });
+      
+    }
+
+
+  loadFeaturedProducts();
+
+
+
+
+
+
+
+
 
   </script>
 </body>
