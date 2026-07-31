@@ -3,15 +3,12 @@ fetch("/navbar.html")
     .then(data => {
         document.getElementById("navbar").innerHTML = data;
 
-        // Wait until navbar exists
+        // wait until navbar exists
         setTimeout(() => {
-            document.querySelector("#navbar .topbar").classList.add("loaded");
-        }, 2000);
+            const navbar = document.querySelector(".topbar");
+
+            if (navbar) {
+                navbar.classList.add("loaded");
+            }
+        }, 50);
     });
-
-
-window.addEventListener('load', function() {
-    setTimeout(() => {
-        document.getElementById('loadingScreen').classList.add('hidden');
-    }, 2000);
-});
