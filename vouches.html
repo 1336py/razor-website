@@ -161,69 +161,76 @@ font-size:1.2rem;
 
 
 .vouches-container{
+    position:relative;
+    z-index:10;
 
-position:relative;
+    max-width:1200px;
+    margin:auto;
+    padding:2rem;
 
-z-index:10;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:2rem;
 
-max-width:1200px;
-
-margin:auto;
-
-padding:2rem;
-
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(350px,1fr));
-
-gap:2rem;
-
+    grid-auto-rows:10px;
 }
-
 
 
 .vouch{
 
+    display:inline-block;
+    width:100%;
 
-background:
-linear-gradient(
-135deg,
-rgba(18,18,18,.95),
-rgba(30,30,30,.95)
-);
+    margin:0 0 2rem;
 
+    break-inside:avoid;
+    page-break-inside:avoid;
 
-border:
+    background:
+    linear-gradient(
+    135deg,
+    rgba(18,18,18,.95),
+    rgba(30,30,30,.95)
+    );
 
-2px solid rgba(93,11,110,.3);
+    border:2px solid rgba(93,11,110,.3);
 
+    border-radius:20px;
 
-border-radius:20px;
+    padding:2rem;
 
-padding:2rem;
+    opacity:0;
 
+    transform:translateY(50px);
 
-opacity:0;
+    animation:cardSlide .7s ease forwards;
 
-transform:translateY(50px);
+    transition:.35s;
 
+    position:relative;
 
-animation:
-cardSlide .7s ease forwards;
+    overflow:hidden;
 
-
-transition:.35s;
-
-
-position:relative;
-
-overflow:hidden;
-
+    grid-row-end:span 1;
 
 }
 
 
+@media (max-width: 1100px){
+
+    .vouches-container{
+        column-count:2;
+    }
+
+}
+
+@media (max-width: 700px){
+
+    .vouches-container{
+        column-count:1;
+    }
+
+}
 
 @keyframes cardSlide{
 
@@ -386,6 +393,15 @@ transform:scale(1.03);
     align-items:start;
 }
 
+
+.vouch video{
+    margin-top:20px;
+    width:100%;
+    border-radius:15px;
+    display:block;
+}
+
+
 </style>
 
 
@@ -411,7 +427,7 @@ Vouches
 </h1>
 
 <p>
-Trusted by our customers.
+Almost 200 and counting.
 </p>
 
 </header>
@@ -550,22 +566,28 @@ ${vouch.message}
 
 
 
-${vouch.image ?
+${
+vouch.image ?
 
 `
-
 <a href="${vouch.image}" target="_blank">
-
-<img src="${vouch.image}">
-
+    <img src="${vouch.image}" loading="lazy">
 </a>
+`
 
+:
+
+vouch.video ?
+
+`
+<video controls preload="metadata">
+    <source src="${vouch.video}" type="video/mp4">
+</video>
 `
 
 :
 
 ""
-
 }
 
 
@@ -597,9 +619,31 @@ Could not load vouches.
 
 }
 
+setTimeout(resizeVouches,50);
+
 
 loadVouches();
 
+function resizeVouches(){
+
+    const grid = document.querySelector(".vouches-container");
+    const rowHeight = parseInt(getComputedStyle(grid).gridAutoRows);
+    const rowGap = parseInt(getComputedStyle(grid).gap);
+
+    document.querySelectorAll(".vouch").forEach(card=>{
+
+        const height = card.getBoundingClientRect().height;
+
+        const span = Math.ceil((height + rowGap) / (rowHeight + rowGap));
+
+        card.style.gridRowEnd = `span ${span}`;
+
+    });
+
+}
+
+window.addEventListener("load", resizeVouches);
+window.addEventListener("resize", resizeVouches);
 
 
 </script>

@@ -4,10 +4,10 @@
     "title": "Razor Permanent HWID Spoofer",
     "subtitle": "Maximum Security",
     "description": "Permanent HWID spoofing with frequent updates.",
-    "images": [ "images/abc123.png", "images/perm menu.png", "images/spoof.png" ],
+    "images": [ "images/abc123.png", "images/perm menu.png" ],
     "startingPrice": 25.99,
     "category": "Spoofers",
-    "featured": true,
+    "featured": false,
 
     "variants": [
       {
@@ -22,8 +22,8 @@
 
     "rating": 5,
     "related": [
-      "faithless",
-      "unban"
+      "temp",
+      "boost"
     ]
   },
 
@@ -78,6 +78,64 @@
       {
         "name": "Lifetime",
         "price": 25.99
+      }
+    ],
+
+    "rating": 5,
+    "related": [
+      "boost",
+      "spoofer"
+    ]
+  },
+  {
+    "id": "boost",
+    "title": "Discord Booster Rewards",
+    "subtitle": "Grants access.",
+    "description": "Private server with wide array of cheats, spoofers, and many other things.",
+    "images": [ "images/booster.png", "images/booster1.png" ],
+    "startingPrice": 0.00,
+    "category": "Extra",
+    "featured": false,
+
+    "variants": [
+      {
+        "name":"Monthly | Boost the Discord Server Twice",
+        "price": 0.00
+      },
+      {
+        "name": "Lifetime",
+        "price": 7.99
+      }
+    ],
+
+    "rating": 5,
+    "related": [
+      "unban",
+      "temp"
+    ]
+  },
+  {
+    "id": "temp",
+    "title": "Razor Temporary HWID Spoofer",
+    "subtitle": "One-click temporary solution.",
+    "description": "Temporary solution designed for cheating.",
+    "images": [ "images/bibi.png", "images/temp.png" ],
+    "startingPrice": 6.99,
+    "category": "Extra",
+    "featured": true,
+
+    "variants": [
+      {
+        "name":"3 Days",
+        "price": 6.99
+      },
+      {
+        "name": "1 Week",
+        "price": 14.99
+      },
+      {
+        "name": "Lifetime",
+        "price": 19.99
       }
     ],
 
