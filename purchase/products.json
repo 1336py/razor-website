@@ -1,22 +1,22 @@
 [
   {
-    "id": "spoofer",
+    "id": "perm",
     "title": "Razor Permanent HWID Spoofer",
     "subtitle": "Maximum Security",
     "description": "Permanent HWID spoofing with frequent updates.",
     "images": [ "images/abc123.png", "images/perm menu.png", "images/spoof.png" ],
-    "startingPrice": 9.99,
+    "startingPrice": 25.99,
     "category": "Spoofers",
     "featured": true,
 
     "variants": [
       {
         "name": "One-Time (48h)",
-        "price": 9.99
+        "price": 25.99
       },
       {
         "name": "Lifetime",
-        "price": 24.99
+        "price": 45.99
       }
     ],
 
@@ -33,7 +33,7 @@
     "subtitle": "Complete Access",
     "description": "1-time purchase working for any game, forever.",
     "images": [ "images/unban.png", "images/unban email.png" ],
-    "startingPrice": 25.99,
+    "startingPrice": 24.99,
     "category": "Extra",
     "featured": true,
 
@@ -58,18 +58,26 @@
     "subtitle": "AI Assistance",
     "description": "Computer vision powered aiming solution.",
     "images": [ "images/faithless new.png", "images/faithasd.png" ],
-    "startingPrice": 6.99,
+    "startingPrice": 4.99,
     "category": "AI",
     "featured": true,
 
     "variants": [
       {
+        "name": "3 Days",
+        "price": 4.99
+      },
+      {
+        "name": "2 Weeks",
+        "price": 12.99
+      },
+      {
         "name": "1 Month",
-        "price": 6.99
+        "price": 17.99
       },
       {
         "name": "Lifetime",
-        "price": 49.99
+        "price": 25.99
       }
     ],
 

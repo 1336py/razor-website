@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Razor | Checkout</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+
+<style>
+
+body{
+
+margin:0;
+
+background:#0a0a0a;
+
+color:white;
+
+font-family:Montserrat;
+
+}
+
+
+.checkout{
+
+max-width:600px;
+
+margin:100px auto;
+
+background:#151515;
+
+padding:40px;
+
+border-radius:25px;
+
+border:1px solid rgba(194,22,185,.3);
+
+box-shadow:0 0 40px rgba(194,22,185,.15);
+
+}
+
+
+h1{
+
+color:#c216b9;
+
+}
+
+
+.info{
+
+margin-top:25px;
+
+background:#101010;
+
+padding:20px;
+
+border-radius:15px;
+
+}
+
+
+.price{
+
+font-size:28px;
+
+color:#c216b9;
+
+font-weight:bold;
+
+}
+
+
+button{
+
+width:100%;
+
+margin-top:30px;
+
+padding:15px;
+
+border:none;
+
+border-radius:15px;
+
+background:linear-gradient(
+45deg,
+#c216b9,
+#3a0040
+);
+
+color:white;
+
+font-weight:bold;
+
+cursor:pointer;
+
+font-size:16px;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="checkout">
+
+
+<h1>
+Checkout
+</h1>
+
+
+<div class="info">
+
+
+<h2 id="title">
+Loading...
+</h2>
+
+
+<p id="variant"></p>
+
+
+<div class="price" id="price"></div>
+
+
+<p>
+Your order ID:
+</p>
+
+
+<strong id="order"></strong>
+
+
+</div>
+
+
+
+<button onclick="continuePayment()">
+
+Continue To Payment
+
+</button>
+
+
+</div>
+
+
+
+
+<script>
+
+
+let orderID;
+
+
+
+function generateOrder(){
+
+return "RZR-" +
+Math.floor(
+10000 +
+Math.random()*90000
+);
+
+}
+
+
+
+async function load(){
+
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+
+const id =
+params.get("id");
+
+
+const variant =
+params.get("variant");
+
+
+const price =
+params.get("price");
+
+
+
+const res =
+await fetch("products.json");
+
+
+const products =
+await res.json();
+
+
+const product =
+products.find(
+p=>p.id===id
+);
+
+
+
+document.getElementById("title")
+.textContent =
+product.title;
+
+
+document.getElementById("variant")
+.textContent =
+"Variant: " + 
+(variant || "Default");
+
+
+
+document.getElementById("price")
+.textContent =
+"$" + 
+Number(price).toFixed(2);
+
+
+
+orderID =
+generateOrder();
+
+
+
+document.getElementById("order")
+.textContent =
+orderID;
+
+
+
+localStorage.setItem(
+"razorOrder",
+JSON.stringify({
+
+id:orderID,
+
+product:product.title,
+
+variant:variant,
+
+price:price
+
+})
+
+);
+
+
+}
+
+
+
+function continuePayment(){
+
+window.location.href =
+"payment.html?order="+orderID;
+
+}
+
+
+
+load();
+
+
+</script>
+
+
+</body>
+
+</html>

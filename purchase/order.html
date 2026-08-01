@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Razor | Order Submitted</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+
+body{
+
+margin:0;
+
+background:#0a0a0a;
+
+color:white;
+
+font-family:Montserrat,sans-serif;
+
+}
+
+
+.order-container{
+
+max-width:650px;
+
+margin:80px auto;
+
+padding:35px;
+
+background:
+linear-gradient(
+135deg,
+#151515,
+#202020
+);
+
+border-radius:25px;
+
+border:1px solid rgba(194,22,185,.3);
+
+box-shadow:
+0 0 40px rgba(194,22,185,.15);
+
+}
+
+
+
+h1{
+
+color:#c216b9;
+
+margin-top:0;
+
+}
+
+
+
+.success{
+
+font-size:50px;
+
+text-align:center;
+
+margin-bottom:15px;
+
+}
+
+
+
+.subtitle{
+
+text-align:center;
+
+color:#aaa;
+
+}
+
+
+
+.info{
+
+background:#101010;
+
+padding:20px;
+
+border-radius:15px;
+
+margin-top:25px;
+
+}
+
+
+
+.label{
+
+color:#888;
+
+font-size:14px;
+
+}
+
+
+.value{
+
+font-weight:700;
+
+margin-bottom:15px;
+
+}
+
+
+
+input{
+
+width:100%;
+
+padding:14px;
+
+margin-top:8px;
+
+background:#080808;
+
+border:1px solid #333;
+
+border-radius:12px;
+
+color:white;
+
+font-family:Montserrat;
+
+}
+
+
+
+button{
+
+width:100%;
+
+padding:15px;
+
+margin-top:20px;
+
+border:none;
+
+border-radius:14px;
+
+font-family:Montserrat;
+
+font-weight:700;
+
+cursor:pointer;
+
+color:white;
+
+transition:.3s;
+
+}
+
+
+
+.discord{
+
+background:
+linear-gradient(
+45deg,
+#5865f2,
+#404eed
+);
+
+}
+
+
+.submit{
+
+background:
+linear-gradient(
+45deg,
+#c216b9,
+#3a0040
+);
+
+}
+
+
+button:hover{
+
+transform:translateY(-3px);
+
+box-shadow:
+0 0 25px rgba(194,22,185,.4);
+
+}
+
+
+
+.steps{
+
+margin-top:25px;
+
+padding:20px;
+
+background:#101010;
+
+border-radius:15px;
+
+color:#aaa;
+
+line-height:1.7;
+
+}
+
+
+
+.steps b{
+
+color:white;
+
+}
+
+
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+<div class="order-container">
+
+
+<div class="success">
+✓
+</div>
+
+
+<h1>
+Order Created
+</h1>
+
+
+<p class="subtitle">
+Complete the steps below to receive your product.
+</p>
+
+
+
+<div class="info">
+
+
+<div class="label">
+Order ID
+</div>
+
+<div class="value" id="order">
+Loading...
+</div>
+
+
+
+<div class="label">
+Product
+</div>
+
+<div class="value" id="product">
+</div>
+
+
+
+<div class="label">
+Variant
+</div>
+
+<div class="value" id="variant">
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="steps">
+
+
+<b>Next Steps</b>
+
+<br><br>
+
+
+1. Paste your TXID below.
+
+<br>
+
+2. Join our Discord.
+
+<br>
+
+3. Open a support ticket.
+
+<br>
+
+4. Send your Order ID and TXID.
+
+<br>
+
+5. Wait for payment verification.
+
+
+
+</div>
+
+
+
+
+
+<label>
+Transaction ID (TXID)
+</label>
+
+
+<input 
+id="txid"
+placeholder="Paste your transaction ID">
+
+
+
+
+
+<button class="submit" onclick="copyOrder()">
+
+Copy Order Details
+
+</button>
+
+
+
+<button class="discord" onclick="openDiscord()">
+
+Join Discord
+
+</button>
+
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+const order =
+JSON.parse(
+localStorage.getItem("razorOrder")
+);
+
+
+
+if(order){
+
+
+document.getElementById("order")
+.textContent =
+order.id;
+
+
+document.getElementById("product")
+.textContent =
+order.product;
+
+
+document.getElementById("variant")
+.textContent =
+order.variant || "Default";
+
+
+}
+
+
+
+
+function copyOrder(){
+
+
+const txid =
+document.getElementById("txid").value;
+
+
+const text =
+
+`Razor Order
+
+Order ID:
+${order.id}
+
+Product:
+${order.product}
+
+Variant:
+${order.variant || "Default"}
+
+TXID:
+${txid}`;
+
+
+
+navigator.clipboard.writeText(text);
+
+
+alert(
+"Order details copied!"
+);
+
+
+}
+
+
+
+
+function openDiscord(){
+
+
+window.open(
+"https://discord.gg/XMzm26Z9SV",
+"_blank"
+);
+
+
+}
+
+
+
+</script>
+
+
+</body>
+
+</html>

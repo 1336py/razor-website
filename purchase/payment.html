@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Razor | Payment</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+
+body{
+
+margin:0;
+
+background:#0a0a0a;
+
+color:white;
+
+font-family:Montserrat,sans-serif;
+
+}
+
+
+.payment{
+
+max-width:650px;
+
+margin:80px auto;
+
+padding:35px;
+
+background:
+linear-gradient(
+135deg,
+#151515,
+#202020
+);
+
+border-radius:25px;
+
+border:1px solid rgba(194,22,185,.3);
+
+box-shadow:
+0 0 40px rgba(194,22,185,.15);
+
+}
+
+
+
+h1{
+
+margin-top:0;
+
+color:#c216b9;
+
+font-size:32px;
+
+}
+
+
+
+.order-box{
+
+background:#101010;
+
+padding:20px;
+
+border-radius:15px;
+
+margin-bottom:25px;
+
+}
+
+
+
+.label{
+
+color:#999;
+
+font-size:14px;
+
+}
+
+
+
+.value{
+
+font-weight:700;
+
+margin-bottom:12px;
+
+}
+
+
+
+
+.wallet-box{
+
+background:#0d0d0d;
+
+padding:20px;
+
+border-radius:15px;
+
+border:1px solid rgba(255,255,255,.08);
+
+margin-top:20px;
+
+}
+
+
+
+.wallet{
+
+display:flex;
+
+gap:10px;
+
+margin-top:10px;
+
+}
+
+
+
+input{
+
+flex:1;
+
+background:#050505;
+
+border:1px solid #333;
+
+padding:12px;
+
+border-radius:10px;
+
+color:white;
+
+font-family:Montserrat;
+
+}
+
+
+
+button{
+
+padding:12px 18px;
+
+border:none;
+
+border-radius:12px;
+
+cursor:pointer;
+
+font-weight:700;
+
+font-family:Montserrat;
+
+color:white;
+
+background:#333;
+
+transition:.3s;
+
+}
+
+
+
+button:hover{
+
+background:#c216b9;
+
+}
+
+
+
+.continue{
+
+width:100%;
+
+margin-top:30px;
+
+background:
+linear-gradient(
+45deg,
+#c216b9,
+#3a0040
+);
+
+}
+
+
+
+.steps{
+
+margin-top:25px;
+
+background:#101010;
+
+padding:20px;
+
+border-radius:15px;
+
+color:#bbb;
+
+line-height:1.7;
+
+}
+
+
+
+.steps span{
+
+color:white;
+
+font-weight:700;
+
+}
+
+
+
+#qrcode{
+    margin-top:25px;
+    display:flex;
+    justify-content:center;
+    background:white;
+    padding:15px;
+    border-radius:15px;
+    width:max-content;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+<div class="payment">
+
+
+<h1>
+Complete Payment
+</h1>
+
+
+
+<div class="order-box">
+
+
+<div class="label">
+Order ID
+</div>
+
+<div class="value" id="order">
+Loading...
+</div>
+
+
+
+<div class="label">
+Product
+</div>
+
+<div class="value" id="product">
+</div>
+
+
+
+<div class="label">
+Variant
+</div>
+
+<div class="value" id="variant">
+</div>
+
+
+
+<div class="label">
+Amount
+</div>
+
+<div class="value" id="price">
+</div>
+
+
+
+</div>
+
+
+
+
+
+<h2>
+Litecoin Payment
+</h2>
+
+
+<div class="wallet-box">
+
+
+<div class="wallet-box">
+
+<div class="label">
+Send LTC to:
+</div>
+
+<div class="wallet">
+
+<input id="wallet" readonly value="LVmgZH3wJ94UqpR4yAHdeMUmKi544oR1mQ">
+
+<button onclick="copyWallet()">
+Copy
+</button>
+
+</div>
+
+
+<div id="qrcode"></div>
+
+</div>
+
+
+
+
+<div class="steps">
+
+
+<span>After payment:</span>
+
+<br><br>
+
+1. Wait for your transaction to confirm.
+
+<br>
+
+2. Copy your transaction ID (TXID).
+
+<br>
+
+3. Open a ticket in our Discord.
+
+<br>
+
+4. Send your Order ID and TXID.
+
+<br>
+
+5. Your order will be verified and delivered.
+
+</div>
+
+
+
+
+<button class="continue" onclick="finish()">
+
+I Have Completed Payment
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+
+const orderID =
+params.get("order");
+
+
+
+const order =
+JSON.parse(
+localStorage.getItem("razorOrder")
+);
+
+
+
+if(order){
+
+
+document.getElementById("order")
+.textContent =
+order.id;
+
+
+document.getElementById("product")
+.textContent =
+order.product;
+
+
+document.getElementById("variant")
+.textContent =
+order.variant || "Default";
+
+
+document.getElementById("price")
+.textContent =
+"$" + 
+Number(order.price).toFixed(2);
+
+
+}
+
+
+
+
+function copyWallet(){
+
+
+const wallet =
+document.getElementById("wallet");
+
+
+navigator.clipboard.writeText(
+wallet.value
+);
+
+
+alert(
+"Wallet address copied!"
+);
+
+
+}
+
+
+
+
+function finish(){
+
+
+window.location.href =
+"order.html?order="+orderID;
+
+
+}
+
+
+
+const walletAddress =
+document.getElementById("wallet").value;
+
+
+new QRCode(
+document.getElementById("qrcode"),
+{
+    text: walletAddress,
+    width:180,
+    height:180
+}
+);
+
+</script>
+
+
+</body>
+
+</html>

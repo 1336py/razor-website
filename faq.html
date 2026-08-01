@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Razor | FAQ</title>
+
+<meta property="og:title" content="Razor">
+<meta property="og:description" content="Frequently Asked Questions">
+<meta property="og:url" content="https://razorfn.xyz">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://razorfn.xyz/images/razor_transparent.png">
+
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+
+body{
+
+margin:0;
+
+background:#0a0a0a;
+
+color:white;
+
+font-family:'Montserrat',sans-serif;
+
+overflow-x:hidden;
+
+}
+
+
+
+.bg-animation{
+
+position:fixed;
+
+inset:0;
+
+z-index:-1;
+
+
+background:
+
+radial-gradient(circle at 20% 40%,rgba(194,22,185,.15),transparent 40%),
+
+radial-gradient(circle at 80% 20%,rgba(58,0,64,.15),transparent 40%),
+
+radial-gradient(circle at 50% 80%,rgba(194,22,185,.1),transparent 40%);
+
+animation:bgMove 20s infinite alternate;
+
+}
+
+
+
+@keyframes bgMove{
+
+from{
+filter:hue-rotate(0deg);
+}
+
+to{
+filter:hue-rotate(40deg);
+}
+
+}
+
+
+
+
+.particles{
+
+position:fixed;
+
+inset:0;
+
+pointer-events:none;
+
+}
+
+
+
+.particle{
+
+position:absolute;
+
+width:2px;
+
+height:2px;
+
+background:#c216b9;
+
+border-radius:50%;
+
+animation:float 15s linear infinite;
+
+}
+
+
+
+@keyframes float{
+
+0%{
+
+transform:translateY(100vh);
+
+opacity:0;
+
+}
+
+
+20%{
+
+opacity:1;
+
+}
+
+
+100%{
+
+transform:translateY(-100vh);
+
+opacity:0;
+
+}
+
+}
+
+
+
+
+.header{
+
+text-align:center;
+
+padding:90px 20px 50px;
+
+}
+
+
+
+.header h1{
+
+font-size:70px;
+
+margin:0;
+
+color:#c216b9;
+
+text-shadow:
+
+0 0 20px rgba(194,22,185,.5);
+
+}
+
+
+
+.header p{
+
+font-size:20px;
+
+color:#aaa;
+
+}
+
+
+
+
+
+.faq-container{
+
+max-width:900px;
+
+margin:auto;
+
+padding:20px;
+
+}
+
+
+
+.faq{
+
+background:
+
+linear-gradient(135deg,#121212,#1c1c1c);
+
+border:2px solid rgba(194,22,185,.2);
+
+border-radius:18px;
+
+margin-bottom:20px;
+
+overflow:hidden;
+
+transition:.3s;
+
+opacity:0;
+
+animation:fade .6s forwards;
+
+}
+
+
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+transform:translateY(30px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:none;
+
+}
+
+}
+
+
+
+
+.faq:hover{
+
+border-color:#c216b9;
+
+box-shadow:
+
+0 15px 40px rgba(194,22,185,.2);
+
+}
+
+
+
+.question{
+
+padding:25px;
+
+font-size:20px;
+
+font-weight:700;
+
+cursor:pointer;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+
+
+.question span{
+
+color:#c216b9;
+
+font-size:28px;
+
+transition:.3s;
+
+}
+
+
+
+.answer{
+
+max-height:0;
+
+overflow:hidden;
+
+padding:0 25px;
+
+color:#aaa;
+
+line-height:1.7;
+
+transition:.4s;
+
+}
+
+
+
+.faq.active .answer{
+
+max-height:300px;
+
+padding-bottom:25px;
+
+}
+
+
+
+.faq.active .question span{
+
+transform:rotate(45deg);
+
+}
+
+
+
+@media(max-width:768px){
+
+.header h1{
+
+font-size:45px;
+
+}
+
+}
+
+
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+
+<div class="bg-animation"></div>
+
+<div class="particles" id="particles"></div>
+
+
+<div id="navbar"></div>
+
+
+
+<section class="header">
+
+<h1>
+FAQ
+</h1>
+
+
+<p>
+Frequently asked questions about Razor.
+</p>
+
+
+</section>
+
+
+
+<section class="faq-container">
+
+
+
+<div class="faq">
+
+<div class="question">
+What is Razor?
+<span>+</span>
+</div>
+
+<div class="answer">
+Razor is a premium software platform focused on providing reliable, optimized solutions with a strong focus on performance, security, and customer support. Our products are developed with continuous improvements and updates to provide the best possible experience for our customers.
+</div>
+
+</div>
+
+
+
+<div class="faq">
+
+<div class="question">
+How do I purchase a product?
+<span>+</span>
+</div>
+
+<div class="answer">
+To purchase a product, visit the product page, select the solution you are interested in, and follow the provided purchase instructions. If you have any questions before purchasing, our support team is available through Discord.
+</div>
+
+</div>
+
+
+
+<div class="faq">
+
+<div class="question">
+How do I receive my product after purchase?
+<span>+</span>
+</div>
+
+<div class="answer">
+After your payment has been confirmed, you will receive instructions regarding your purchase through our support process. Delivery times may vary depending on the product and verification requirements. If you experience any issues, contact Razor support through Discord.
+</div>
+
+</div>
+
+
+
+<div class="faq">
+
+<div class="question">
+What payment methods do you accept?
+<span>+</span>
+</div>
+
+<div class="answer">
+Available payment methods may change over time. For the most up-to-date payment options, please contact Razor support through our official Discord server before purchasing.
+</div>
+
+</div>
+
+
+
+<div class="faq">
+
+<div class="question">
+Are Razor products compatible with Windows 10 and Windows 11?
+<span>+</span>
+</div>
+
+<div class="answer">
+Compatibility depends on the individual product. Each product page contains relevant information about supported operating systems and requirements. If you are unsure whether a product is compatible with your setup, contact support before purchasing.
+</div>
+
+</div>
+
+
+
+<div class="faq">
+
+<div class="question">
+Do I receive updates after purchasing?
+<span>+</span>
+</div>
+
+<div class="answer">
+Customers receive access to updates and improvements according to the product purchased. We continuously work on improving reliability, compatibility, and overall user experience.
+</div>
+
+</div>
+
+
+
+<div class="faq">
+
+<div class="question">
+Do you provide customer support?
+<span>+</span>
+</div>
+
+<div class="answer">
+Yes. Razor provides customer support through our official Discord server. Our team can assist with purchase questions, product information, troubleshooting, and general support requests.
+</div>
+
+</div>
+
+
+
+<div class="faq">
+
+<div class="question">
+How long does support take to respond?
+<span>+</span>
+</div>
+
+<div class="answer">
+Response times depend on current support volume and availability. We aim to respond as quickly as possible while providing accurate and helpful assistance to every customer.
+</div>
+
+</div>
+
+
+
+<div class="faq">
+
+<div class="question">
+Can I transfer my purchase to another account or device?
+<span>+</span>
+</div>
+
+<div class="answer">
+Transfer options depend on the specific product and licensing system. If you need assistance with a transfer, contact Razor support with your purchase information and we will review your request.
+</div>
+
+</div>
+
+
+
+<div class="faq">
+
+<div class="question">
+Are purchases refundable?
+<span>+</span>
+</div>
+
+<div class="answer">
+Refund eligibility depends on the circumstances of the purchase and whether the product has already been delivered or used. Please review our Terms of Service for complete information regarding refunds and purchases.
+</div>
+
+</div>
+
+
+
+<div class="faq">
+
+<div class="question">
+Can I try a product before purchasing?
+<span>+</span>
+</div>
+
+<div class="answer">
+Trial availability depends on the specific product. If you are interested in learning more before purchasing, you can contact Razor support for additional information.
+</div>
+
+</div>
+
+
+
+<div class="faq">
+
+<div class="question">
+Is my information secure?
+<span>+</span>
+</div>
+
+<div class="answer">
+Razor takes customer privacy and security seriously. We only collect information necessary to provide our services and maintain a reliable customer experience. Please review our Privacy Policy for more details.
+</div>
+
+</div>
+
+
+
+<div class="faq">
+
+<div class="question">
+Where can I get support?
+<span>+</span>
+</div>
+
+<div class="answer">
+Our official support channel is Discord. This is the fastest and most reliable way to contact the Razor team regarding products, purchases, and assistance.
+</div>
+
+</div>
+
+
+
+</section>
+
+
+
+<script>
+
+
+function createParticles(){
+
+let container=document.getElementById("particles");
+
+
+for(let i=0;i<60;i++){
+
+let p=document.createElement("div");
+
+p.className="particle";
+
+p.style.left=Math.random()*100+"%";
+
+p.style.animationDelay=Math.random()*15+"s";
+
+p.style.animationDuration=(10+Math.random()*10)+"s";
+
+
+container.appendChild(p);
+
+}
+
+}
+
+
+createParticles();
+
+
+
+document.querySelectorAll(".faq").forEach(item=>{
+
+
+item.querySelector(".question").onclick=()=>{
+
+
+item.classList.toggle("active");
+
+
+};
+
+
+});
+
+
+
+</script>
+
+
+<script src="navbar.js"></script>
+
+
+</body>
+</html>

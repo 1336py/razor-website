@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Razor | Status</title>
+
+<meta property="og:title" content="Razor">
+<meta property="og:description" content="Your number 1 solution for maximum security.">
+<meta property="og:url" content="https://razorfn.xyz">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://razorfn.xyz/images/razor_transparent.png">
+
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+
+body{
+
+    margin:0;
+
+    font-family:'Montserrat',sans-serif;
+
+    background:#0a0a0a;
+
+    color:white;
+
+    overflow-x:hidden;
+
+}
+
+
+
+.bg-animation{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:0;
+
+    background:
+    radial-gradient(circle at 20% 50%,rgba(194,22,185,.12),transparent 50%),
+    radial-gradient(circle at 80% 20%,rgba(90,0,120,.12),transparent 50%),
+    radial-gradient(circle at 40% 80%,rgba(255,79,198,.08),transparent 50%);
+
+}
+
+
+
+.particles{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:1;
+
+    pointer-events:none;
+
+}
+
+
+
+.particle{
+
+    position:absolute;
+
+    width:2px;
+
+    height:2px;
+
+    background:#c216b9;
+
+    border-radius:50%;
+
+    animation:float 15s linear infinite;
+
+    opacity:0;
+
+}
+
+
+
+@keyframes float{
+
+    0%{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+
+    10%{
+        opacity:1;
+    }
+
+    90%{
+        opacity:1;
+    }
+
+    100%{
+        transform:translateY(-100vh);
+        opacity:0;
+    }
+
+}
+
+
+
+.header{
+
+    position:relative;
+
+    z-index:10;
+
+    text-align:center;
+
+    padding:4rem 2rem 2rem;
+
+}
+
+
+
+.header h1{
+
+    margin:0;
+
+    font-size:3.5rem;
+
+    color:#c216b9;
+
+    text-shadow:
+    0 0 20px rgba(194,22,185,.6);
+
+}
+
+
+
+.header p{
+
+    color:#bbb;
+
+}
+
+
+
+.container{
+
+    position:relative;
+
+    z-index:10;
+
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:2rem;
+
+}
+
+
+
+.overall{
+
+    background:
+    linear-gradient(135deg,#121212,#1e1e1e);
+
+    border-radius:20px;
+
+    border:1px solid rgba(51,255,122,.25);
+
+    padding:35px;
+
+    text-align:center;
+
+    box-shadow:
+    0 0 30px rgba(51,255,122,.12);
+
+    animation:slide .7s ease;
+
+}
+
+
+
+@keyframes slide{
+
+from{
+
+opacity:0;
+
+transform:translateY(40px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+
+
+.overall h2{
+
+    margin:0;
+
+    color:#33ff7a;
+
+    font-size:2rem;
+
+}
+
+
+
+.status-dot{
+
+    display:inline-block;
+
+    width:12px;
+
+    height:12px;
+
+    background:#33ff7a;
+
+    border-radius:50%;
+
+    margin-right:10px;
+
+    box-shadow:0 0 15px #33ff7a;
+
+}
+
+
+
+.services{
+
+    margin-top:30px;
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+
+    gap:20px;
+
+}
+
+
+
+.service{
+
+    background:#121212;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.3s;
+
+}
+
+
+
+.service:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#c216b9;
+
+    box-shadow:
+    0 0 25px rgba(194,22,185,.25);
+
+}
+
+
+
+.service-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+
+
+.service h3{
+
+    margin:0;
+
+    color:white;
+
+}
+
+
+
+.badge{
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:.8rem;
+
+    font-weight:700;
+
+}
+
+
+
+.operational{
+
+    background:rgba(51,255,122,.15);
+
+    color:#33ff7a;
+
+}
+
+
+
+.maintenance{
+
+    background:rgba(255,200,50,.15);
+
+    color:#ffd633;
+
+}
+
+
+
+.down{
+
+    background:rgba(255,85,85,.15);
+
+    color:#ff5555;
+
+}
+
+
+
+.service p{
+
+    color:#aaa;
+
+    line-height:1.6;
+
+}
+
+
+
+.uptime{
+
+    color:#c216b9;
+
+    font-weight:700;
+
+}
+
+
+
+.incident{
+
+    margin-top:40px;
+
+    background:#121212;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+
+
+.incident h2{
+
+    color:#c216b9;
+
+}
+
+
+
+.incident p{
+
+    color:#aaa;
+
+}
+
+
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+
+<div class="bg-animation"></div>
+
+<div class="particles" id="particles"></div>
+
+
+<div id="navbar"></div>
+
+
+<header class="header">
+
+<h1>Status</h1>
+
+<p>Real-time Razor service availability.</p>
+
+</header>
+
+
+
+<div class="container">
+
+
+<div class="overall">
+
+<h2>
+<span class="status-dot"></span>
+All Systems Operational
+</h2>
+
+<p>
+Everything is currently running normally.
+</p>
+
+</div>
+
+
+
+<div class="services" id="services"></div>
+
+
+
+<div class="incident">
+
+<h2>Recent Incidents</h2>
+
+<p>
+No recent incidents reported.
+</p>
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+
+async function loadStatus(){
+
+const response = await fetch("status.json");
+
+const services = await response.json();
+
+
+const container=document.getElementById("services");
+
+
+services.forEach(service=>{
+
+
+let cls =
+service.status === "Operational"
+? "operational"
+:
+service.status === "Maintenance"
+? "maintenance"
+:
+"down";
+
+
+container.innerHTML += `
+
+<div class="service">
+
+
+<div class="service-top">
+
+<h3>${service.service}</h3>
+
+<span class="badge ${cls}">
+${service.status}
+</span>
+
+</div>
+
+
+<p>
+${service.description}
+</p>
+
+
+<p class="uptime">
+Uptime: ${service.uptime}
+</p>
+
+
+</div>
+
+`;
+
+
+});
+
+
+}
+
+
+function createParticles(){
+
+const container=document.getElementById("particles");
+
+
+for(let i=0;i<50;i++){
+
+let p=document.createElement("div");
+
+p.className="particle";
+
+p.style.left=Math.random()*100+"%";
+
+p.style.animationDelay=Math.random()*15+"s";
+
+p.style.animationDuration=(10+Math.random()*10)+"s";
+
+container.appendChild(p);
+
+}
+
+}
+
+
+createParticles();
+
+loadStatus();
+
+
+</script>
+
+
+<script src="navbar.js"></script>
+
+
+</body>
+
+</html>

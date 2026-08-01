@@ -3,469 +3,916 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Razor | Product</title>
+<title>Razor | Product</title>
 
-    <meta property="og:title" content="Razor">
-    <meta property="og:description" content="Your number 1 solution for maximum security.">
-    <meta property="og:url" content="https://razorfn.xyz">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://razorfn.xyz/images/razor_transparent.png">
+<meta property="og:title" content="Razor">
+<meta property="og:description" content="Your number one solution for maximum security.">
+<meta property="og:url" content="https://razorfn.xyz">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://razorfn.xyz/images/razor_transparent.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
 
 
-    <style>
-        * {
-        box-sizing:border-box;
-        }
-        
-        
-        body {
-        
-        margin:0;
-        
-        background:#0a0a0a;
-        
-        font-family:'Montserrat',sans-serif;
-        
-        color:white;
-        
-        overflow-x:hidden;
-        
-        }
-        
-        
-        
-        /* BACKGROUND */
-        
-        .bg-animation {
-        
-        position:fixed;
-        
-        inset:0;
-        
-        z-index:0;
-        
-        background:
-        radial-gradient(circle at 20% 50%,rgba(187,64,255,.1),transparent 50%),
-        radial-gradient(circle at 80% 20%,rgba(255,86,164,.1),transparent 50%),
-        radial-gradient(circle at 40% 80%,rgba(139,0,255,.1),transparent 50%);
-        
-        }
-        
-        
-        
-        .particles {
-        
-        position:fixed;
-        
-        inset:0;
-        
-        z-index:1;
-        
-        pointer-events:none;
-        
-        }
-        
-        
-        
-        .particle {
-        
-        position:absolute;
-        
-        width:3px;
-        
-        height:3px;
-        
-        background:#ff4fc6;
-        
-        border-radius:50%;
-        
-        animation:float 15s linear infinite;
-        
-        opacity:0;
-        
-        }
-        
-        
-        
-        @keyframes float {
-        
-        0%{
-        transform:translateY(100vh);
-        opacity:0;
-        }
-        
-        10%{
-        opacity:1;
-        }
-        
-        90%{
-        opacity:1;
-        }
-        
-        100%{
-        transform:translateY(-100vh);
-        opacity:0;
-        }
-        
-        }
-        
-        
-        
-        /* MAIN */
-        
-        
-        .container {
-        
-        max-width:1200px;
-        
-        margin:3rem auto;
-        
-        padding:0 2rem;
-        
-        display:flex;
-        
-        gap:2rem;
-        
-        position:relative;
-        
-        z-index:5;
-        
-        }
-        
-        
-        
-        .product-left {
-        
-        flex:2;
-        
-        background:linear-gradient(135deg,#111,#1b1b1b);
-        
-        border-radius:20px;
-        
-        padding:1.5rem;
-        
-        border:1px solid rgba(255,255,255,.08);
-        
-        box-shadow:0 0 20px rgba(255,79,198,.15);
-        
-        }
-        
-        
-        
-        .product-left img {
-        
-        width:100%;
-        
-        max-height:600px;
-        
-        object-fit:contain;
-        
-        border-radius:15px;
-        
-        }
-        
-        
-        
-        .product-right {
-        
-        flex:1;
-        
-        background:linear-gradient(135deg,#161616,#202020);
-        
-        border-radius:20px;
-        
-        padding:2rem;
-        
-        display:flex;
-        
-        flex-direction:column;
-        
-        gap:1rem;
-        
-        }
-        
-        
-        
-        .product-right h1 {
-        
-        font-size:1.8rem;
-        
-        margin:0;
-        
-        }
-        
-        
-        
-        .price {
-        
-        font-size:1.5rem;
-        
-        color:#ff4fc6;
-        
-        }
-        
-        
-        
-        .stars {
-        
-        color:#ff92e6;
-        
-        font-size:1.3rem;
-        
-        }
-        
-        
-        
-        select,
-        input,
-        button {
-        
-        
-        padding:.75rem;
-        
-        border-radius:10px;
-        
-        border:none;
-        
-        font-family:'Montserrat';
-        
-        font-weight:600;
-        
-        }
-        
-        
-        
-        select,
-        input {
-        
-        background:#111;
-        
-        color:white;
-        
-        border:1px solid #333;
-        
-        }
-        
-        
-        
-        button {
-        
-        cursor:pointer;
-        
-        background:#222;
-        
-        color:white;
-        
-        transition:.3s;
-        
-        }
-        
-        
-        
-        button:hover {
-        
-        background:#bf33e6;
-        
-        transform:scale(1.03);
-        
-        }
-        
-        
-        
-        .buy {
-        
-        background:#ff4fc6;
-        
-        }
-        
-        
-        
-        .buy:hover {
-        
-        background:#e045b2;
-        
-        }
-        
-        
-        
-        .coupon-row {
-        
-        display:flex;
-        
-        gap:.5rem;
-        
-        }
-        
-        
-        
-        .coupon {
-        
-        flex:1;
-        
-        }
-        
-        
-        
-        #coupon-message {
-        
-        min-height:20px;
-        
-        }
-        
-        
-        
-        .people-also-bought {
-        
-        margin-top:2rem;
-        
-        }
-        
-        
-        
-        .product-list {
-        
-        display:flex;
-        
-        gap:1rem;
-        
-        overflow-x:auto;
-        
-        }
-        
-        
-        
-        .product-list-item {
-        
-        background:#111;
-        
-        padding:1rem;
-        
-        border-radius:12px;
-        
-        min-width:220px;
-        
-        border:1px solid rgba(255,255,255,.05);
-        
-        transition:.3s;
-        
-        }
-        
-        
-        
-        .product-list-item:hover {
-        
-        transform:translateY(-5px);
-        
-        box-shadow:0 0 15px rgba(255,79,198,.3);
-        
-        }
-        
-        
-        
-        .product-list-item img {
-        
-        width:100%;
-        
-        height:130px;
-        
-        object-fit:cover;
-        
-        border-radius:10px;
-        
-        }
-        
-        
-        
-        @media(max-width:900px){
-        
-        .container{
-        
-        flex-direction:column;
-        
-        }
-        
-        }
-        
-        
-        
-        .product-gallery {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            height: 350px;
-            overflow: hidden;
-            border-radius: 20px;
-        }
-        
-        .product-slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transform: translateX(50px);
-            transition: all 0.45s ease;
-        }
-        
-        .product-slide.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .slide-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-        
-            background: rgba(0,0,0,0.6);
-            color: white;
-        
-            border: none;
-            font-size: 16px;
-        
-            width: 45px;
-            height: 45px;
-        
-            border-radius: 50%;
-        
-            cursor: pointer;
-            z-index: 5;
-        
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        
-            padding: 0;
-            line-height: 1;
-        }
-        
-        .slide-btn:hover {
-            background: rgba(194,22,180,0.8);
-        }
-        
-        .prev {
-            left: 15px;
-        }
-        
-        .next {
-            right: 15px;
-        }
-        
-        .related-image {
-            width:100%;
-            height:130px;
-            object-fit:cover;
-            border-radius:10px;
-        }
-    </style>
+body{
+
+    margin:0;
+
+    background:#0a0a0a;
+
+    color:white;
+
+    font-family:'Montserrat',sans-serif;
+
+    overflow-x:hidden;
+
+}
+
+
+/* BACKGROUND */
+
+.bg-animation{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:-2;
+
+    background:
+    radial-gradient(circle at 20% 30%,rgba(194,22,185,.18),transparent 45%),
+    radial-gradient(circle at 80% 20%,rgba(58,0,64,.15),transparent 45%),
+    radial-gradient(circle at 50% 80%,rgba(255,79,198,.12),transparent 45%);
+
+    animation:bgMove 20s infinite alternate;
+
+}
+
+
+@keyframes bgMove{
+
+    from{
+        filter:hue-rotate(0deg);
+    }
+
+    to{
+        filter:hue-rotate(35deg);
+    }
+
+}
+
+
+/* PARTICLES */
+
+.particles{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:1;
+
+}
+
+
+.particle{
+
+    position:absolute;
+
+    width:2px;
+
+    height:2px;
+
+    background:#c216b9;
+
+    border-radius:50%;
+
+    animation:float 15s linear infinite;
+
+    opacity:0;
+
+}
+
+
+@keyframes float{
+
+0%{
+    transform:translateY(100vh);
+    opacity:0;
+}
+
+20%{
+    opacity:1;
+}
+
+100%{
+
+    transform:translateY(-100vh);
+
+    opacity:0;
+
+}
+
+}
+
+
+
+/* MAIN CONTAINER */
+
+
+.container{
+
+    max-width:1250px;
+
+    margin:70px auto;
+
+    padding:0 25px;
+
+    display:grid;
+
+    grid-template-columns:1.4fr .8fr;
+
+    gap:30px;
+
+    position:relative;
+
+    z-index:5;
+
+}
+
+
+
+/* LEFT SIDE */
+
+
+.product-left{
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(18,18,18,.95),
+        rgba(28,28,28,.95)
+    );
+
+    border-radius:25px;
+
+    padding:25px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+    0 0 40px rgba(194,22,185,.12);
+
+}
+
+
+
+/* GALLERY */
+
+
+.product-gallery{
+
+    position:relative;
+
+    width:100%;
+
+    height:430px;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    background:#090909;
+
+}
+
+
+.product-slide{
+
+    position:absolute;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    opacity:0;
+
+    transform:scale(1.05);
+
+    transition:.6s ease;
+
+}
+
+
+.product-slide.active{
+
+    opacity:1;
+
+    transform:scale(1);
+
+}
+
+
+
+/* ARROWS */
+
+
+.slide-btn{
+
+    position:absolute;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+
+    border:none;
+
+    cursor:pointer;
+
+    color:white;
+
+    background:rgba(0,0,0,.65);
+
+    backdrop-filter:blur(8px);
+
+    transition:.3s;
+
+    z-index:5;
+
+}
+
+
+.slide-btn:hover{
+
+    background:#c216b9;
+
+    box-shadow:
+    0 0 25px rgba(194,22,185,.7);
+
+    transform:translateY(-50%) scale(1.1);
+
+}
+
+
+.prev{
+    left:15px;
+}
+
+
+.next{
+    right:15px;
+}
+
+
+
+/* RIGHT PANEL */
+
+
+.product-right{
+
+    background:
+    linear-gradient(
+        135deg,
+        #151515,
+        #202020
+    );
+
+    border-radius:25px;
+
+    padding:30px;
+
+    border:1px solid rgba(194,22,185,.2);
+
+    box-shadow:
+    0 0 35px rgba(194,22,185,.15);
+
+    height:max-content;
+
+}
+
+
+
+.product-right h1{
+
+    margin:0;
+
+    font-size:32px;
+
+    color:#fff;
+
+}
+
+
+#product-description{
+
+    color:#aaa;
+
+    line-height:1.7;
+
+}
+
+
+
+/* PRICE */
+
+
+.price{
+
+    margin-top:20px;
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:#c216b9;
+
+    text-shadow:
+    0 0 15px rgba(194,22,185,.4);
+
+}
+
+
+.stars{
+
+    margin-top:10px;
+
+    color:#ff92e6;
+
+}
+
+
+
+/* INPUTS */
+
+
+select,
+input{
+
+    width:100%;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    background:#0d0d0d;
+
+    border:1px solid #333;
+
+    color:white;
+
+    font-family:Montserrat;
+
+}
+
+
+select:focus,
+input:focus{
+
+    outline:none;
+
+    border-color:#c216b9;
+
+}
+
+
+
+/* BUTTONS */
+
+
+button{
+
+    padding:14px;
+
+    border-radius:14px;
+
+    border:none;
+
+    cursor:pointer;
+
+    font-family:Montserrat;
+
+    font-weight:700;
+
+    color:white;
+
+    transition:.3s;
+
+}
+
+
+button:hover{
+
+    transform:translateY(-3px);
+
+}
+
+
+
+.buy{
+
+    background:
+    linear-gradient(
+        45deg,
+        #c216b9,
+        #3a0040
+    );
+
+}
+
+
+.buy:hover,
+button:first-of-type:hover{
+
+    box-shadow:
+    0 0 30px rgba(194,22,185,.6);
+
+}
+
+
+
+/* COUPON */
+
+
+.coupon-row{
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+
+.coupon{
+
+    flex:1;
+
+}
+
+
+#coupon-message{
+
+    min-height:22px;
+
+}
+
+
+
+/* RELATED PRODUCTS */
+
+
+.people-also-bought{
+
+    margin-top:35px;
+
+}
+
+
+.product-list{
+
+    display:flex;
+
+    gap:20px;
+
+    overflow-x:auto;
+
+    padding-bottom:10px;
+
+}
+
+
+.product-list-item{
+
+    min-width:230px;
+
+    background:#111;
+
+    border-radius:18px;
+
+    padding:15px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    cursor:pointer;
+
+    transition:.35s;
+
+}
+
+
+.product-list-item:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#c216b9;
+
+    box-shadow:
+    0 15px 35px rgba(194,22,185,.25);
+
+}
+
+
+.related-image{
+
+    width:100%;
+
+    height:130px;
+
+    object-fit:cover;
+
+    border-radius:12px;
+
+}
+
+
+/* MOBILE */
+
+
+@media(max-width:900px){
+
+.container{
+
+    grid-template-columns:1fr;
+
+}
+
+
+.product-gallery{
+
+    height:300px;
+
+}
+
+
+.product-right h1{
+
+    font-size:25px;
+
+}
+
+}
+
+/* PRODUCT HERO */
+
+.product-hero{
+
+    position:relative;
+    z-index:5;
+
+    text-align:center;
+
+    padding:80px 20px 20px;
+
+}
+
+
+.product-hero h1{
+
+    margin:0;
+
+    font-size:60px;
+
+    color:#c216b9;
+
+    text-shadow:
+    0 0 25px rgba(194,22,185,.5);
+
+}
+
+
+.product-hero p{
+
+    margin-top:15px;
+
+    color:#aaa;
+
+    font-size:18px;
+
+}
+
+
+
+/* PRODUCT HEADER */
+
+.product-header{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    margin-bottom:15px;
+
+}
+
+
+
+/* PRICE BOX */
+
+.price-box{
+
+    margin-top:20px;
+
+    padding:18px;
+
+    border-radius:16px;
+
+    background:#0d0d0d;
+
+    border:1px solid rgba(194,22,185,.15);
+
+}
+
+
+.price-box span{
+
+    color:#888;
+
+    font-size:14px;
+
+}
+
+
+
+/* OPTIONS */
+
+.option-box,
+.coupon-box{
+
+    margin-top:20px;
+
+}
+
+
+.option-box label,
+.coupon-box label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#bbb;
+
+    font-size:14px;
+
+}
+
+
+
+/* PURCHASE BUTTONS */
+
+.purchase-buttons{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:10px;
+
+}
+
+
+.purchase-buttons button{
+
+    width:100%;
+
+}
+
+
+.cart{
+
+    background:
+    linear-gradient(
+        45deg,
+        #9711a3,
+        #3a0040
+    );
+
+}
+
+
+.cart:hover{
+
+    box-shadow:
+    0 0 30px rgba(194,22,185,.5);
+
+}
+
+
+
+.buy{
+
+    background:
+    linear-gradient(
+        45deg,
+        #c216b9,
+        #ff4fc6
+    );
+
+}
+
+
+
+.buy:hover{
+
+    box-shadow:
+    0 0 35px rgba(255,79,198,.6);
+
+}
+
+
+
+/* SECURITY FEATURES */
+
+.secure-box{
+
+    margin-top:30px;
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:12px;
+
+}
+
+
+.secure-box div{
+
+    padding:14px;
+
+    border-radius:14px;
+
+    background:#111;
+
+    border:1px solid rgba(255,255,255,.06);
+
+    color:#bbb;
+
+    transition:.3s;
+
+}
+
+
+.secure-box i{
+
+    color:#c216b9;
+
+    margin-right:10px;
+
+}
+
+
+.secure-box div:hover{
+
+    transform:translateX(5px);
+
+    border-color:#c216b9;
+
+    color:white;
+
+}
+
+
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.product-hero h1{
+
+    font-size:42px;
+
+}
+
+
+.purchase-buttons{
+
+    flex-direction:column;
+
+}
+
+}
+
+.coupon-row button{
+
+    background:#2b2b2b;
+
+    color:#ddd;
+
+    border:1px solid rgba(255,255,255,.1);
+
+}
+
+
+.coupon-row button:hover{
+
+    background:#3a3a3a;
+
+    border-color:#c216b9;
+
+    box-shadow:
+    0 0 20px rgba(194,22,185,.25);
+
+}
+
+
+.option-box select{
+
+    appearance:none;
+
+    padding-right:45px;
+
+    background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+
+    background-repeat:no-repeat;
+
+    background-position:right 15px center;
+
+    background-size:18px;
+
+    cursor:pointer;
+
+}
+
+
+
+.coupon-box{
+
+    margin-bottom:10px;
+
+}
+
+
+.purchase-buttons{
+
+    margin-top:10px;
+
+}
+
+
+
+
+.product-right{
+
+    gap:0;
+
+}
+
+
+.option-box{
+
+    margin-top:15px;
+
+}
+
+
+.coupon-box{
+
+    margin-top:15px;
+
+}
+
+
+
+
+.slide-btn{
+
+    background:rgba(0,0,0,.65) !important;
+
+    color:white;
+
+}
+
+
+</style>
 
 
 </head>
@@ -474,37 +921,75 @@
 
 <body>
 
-    <div id="navbar"></div>
+<div id="navbar"></div>
 
-    <div class="bg-animation"></div>
+<div class="bg-animation"></div>
 
-    <div class="particles" id="particles"></div>
-
-
-
-    <div class="container">
+<div class="particles" id="particles"></div>
 
 
-        <div class="product-left">
+<section class="product-hero">
 
+    <h1>
+        Razor Products
+    </h1>
+
+    <p>
+        Premium solutions built for performance, security, and reliability.
+    </p>
+
+</section>
+
+
+
+<div class="container">
+
+
+    <div class="product-left">
+
+
+        <div class="product-gallery-wrapper">
 
             <div class="product-gallery" id="product-gallery">
 
             </div>
 
-
-            <div class="people-also-bought">
-
-
-                <h3>
-People have also bought:
-</h3>
+        </div>
 
 
-                <div class="product-list" id="related-products">
 
-                </div>
+        <div class="people-also-bought">
 
+            <h3>
+                People have also bought
+            </h3>
+
+
+            <div class="product-list" id="related-products">
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <div class="product-right">
+
+
+        <div class="product-header">
+
+
+            <h1 id="product-title">
+                Loading...
+            </h1>
+
+
+            <div class="stars" id="stars">
 
             </div>
 
@@ -513,34 +998,24 @@ People have also bought:
 
 
 
+        <p id="product-description" class="product-description">
 
-
-        <div class="product-right">
-
-
-            <h1 id="product-title">
-Loading...
-</h1>
-
-
-            <p id="product-description"></p>
+        </p>
 
 
 
-            <div class="price" id="price-display">
 
-            </div>
-
+        <div class="price" id="price-display"></div>
 
 
-            <div class="stars" id="stars">
 
-            </div>
 
+
+        <div class="option-box">
 
 
             <label>
-                Variants:
+                Select Variant
             </label>
 
 
@@ -549,16 +1024,34 @@ Loading...
             </select>
 
 
+        </div>
+
+
+
+
+
+        <div class="coupon-box">
+
+
+            <label>
+                Discount Code
+            </label>
+
 
             <div class="coupon-row">
 
 
-                <input class="coupon" id="coupon" placeholder="Enter Coupon Code">
+                <input 
+                class="coupon" 
+                id="coupon" 
+                placeholder="Enter coupon code">
 
 
                 <button onclick="redeemCoupon()">
 
-                    <i class="fa fa-ticket"></i> Redeem
+                    <i class="fa-solid fa-ticket"></i>
+
+                    Redeem
 
                 </button>
 
@@ -566,27 +1059,28 @@ Loading...
             </div>
 
 
+
             <div id="coupon-message"></div>
 
 
-
-            <button>
-
-                <i class="fa fa-cart-plus"></i> Add to Cart
-
-            </button>
+        </div>
 
 
 
-            <button class="buy">
 
-                <i class="fa fa-bolt"></i> Buy Now
 
-            </button>
+        <div class="purchase-buttons">
 
+
+
+        <button class="buy" onclick="buyNow()">
+            <i class="fa-solid fa-bolt"></i>
+            Buy Now
+        </button>
 
 
         </div>
+
 
 
 
@@ -992,6 +1486,49 @@ Loading...
         
             slides[currentSlide].classList.add("active");
         }
+
+
+
+
+
+
+
+
+
+
+
+
+        function buyNow(){
+
+        const variant = document.getElementById("variant");
+            
+        let variantName = "";
+        let price = product.startingPrice;
+            
+            
+        if(product.variants && variant.value){
+        
+            const selected =
+            product.variants.find(
+                v => v.price == variant.value
+            );
+        
+        
+            if(selected){
+                variantName = selected.name;
+                price = selected.price;
+            }
+        
+        }
+    
+    
+        const url =
+        `checkout.html?id=${product.id}&variant=${encodeURIComponent(variantName)}&price=${price}`;
+    
+    
+        window.location.href = url;
+    
+    }
     </script>
 
     <script src="../navbar.js"></script>

@@ -1,0 +1,20 @@
+[
+  {
+    "service": "Website",
+    "status": "Operational",
+    "description": "Razor website and product pages",
+    "uptime": "99.9%"
+  },
+  {
+    "service": "Discord Support",
+    "status": "Operational",
+    "description": "Customer support and community server",
+    "uptime": "99.8%"
+  },
+  {
+    "service": "Product Delivery",
+    "status": "Operational",
+    "description": "Digital product delivery systems",
+    "uptime": "99.7%"
+  }
+]
