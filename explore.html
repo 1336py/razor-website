@@ -1,649 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Razor | Explore Products</title>
-
-<meta property="og:title" content="Razor">
-<meta property="og:description" content="Your number 1 solution for maximum security.">
-<meta property="og:url" content="https://razorfn.xyz">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://razorfn.xyz/images/razor_transparent.png">
-
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    margin:0;
-    background:#0a0a0a;
-    color:white;
-    font-family:'Montserrat',sans-serif;
-    overflow-x:hidden;
-}
-
-
-/* BACKGROUND */
-
-.bg-animation{
-    position:fixed;
-    inset:0;
-    z-index:-2;
-
-    background:
-    radial-gradient(circle at 20% 40%,rgba(194,22,185,.15),transparent 40%),
-    radial-gradient(circle at 80% 20%,rgba(58,0,64,.15),transparent 40%),
-    radial-gradient(circle at 50% 80%,rgba(194,22,185,.1),transparent 40%);
-
-    animation:bgMove 20s infinite alternate;
-}
-
-
-@keyframes bgMove{
-
-    0%{
-        filter:hue-rotate(0deg);
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Shop | Razor</title>
+  <meta name="description" content="Browse every Razor product: HWID spoofers, unban methods, AI aim and Discord booster rewards.">
+  <meta name="theme-color" content="#07060c">
+  <link rel="icon" href="/images/razor_transparent.png">
+  <meta property="og:title" content="Razor | Shop">
+  <meta property="og:description" content="Your number 1 solution for maximum security.">
+  <meta property="og:url" content="https://razorfn.xyz/explore.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://razorfn.xyz/images/razor_transparent.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;600;700;800&display=swap">
+  <link rel="stylesheet" href="/assets/css/razor.css">
+  <script src="/assets/js/razor.js" defer></script>
+  <style>
+    .toolbar {
+      position: sticky;
+      top: calc(var(--nav-h) + 20px);
+      z-index: 10;
+      display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+      margin-bottom: 26px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(14, 12, 22, .85);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
     }
-
-    100%{
-        filter:hue-rotate(40deg);
+    .filters { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: 1 1 auto; min-width: 0; }
+    .filters::-webkit-scrollbar { display: none; }
+    .filter {
+      display: inline-flex; align-items: center; gap: 8px;
+      min-height: 40px; padding: 0 14px;
+      border: 1px solid transparent; border-radius: 11px;
+      background: transparent; color: var(--muted);
+      font-size: 14.5px; font-weight: 700; white-space: nowrap; cursor: pointer;
+      transition: background .2s, color .2s, border-color .2s;
     }
-
-}
-
-
-
-/* PARTICLES */
-
-
-.particles{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:1;
-}
-
-
-.particle{
-    position:absolute;
-    width:2px;
-    height:2px;
-    background:#c216b9;
-    border-radius:50%;
-    animation:float 15s linear infinite;
-}
-
-
-@keyframes float{
-
-0%{
-transform:translateY(100vh);
-opacity:0;
-}
-
-20%{
-opacity:1;
-}
-
-100%{
-transform:translateY(-100vh);
-opacity:0;
-}
-
-}
-
-
-
-/* HEADER */
-
-
-.hero{
-
-position:relative;
-z-index:5;
-
-text-align:center;
-
-padding:100px 20px 60px;
-
-}
-
-
-.hero h1{
-
-font-size:70px;
-margin:0;
-
-color:#c216b9;
-
-text-shadow:
-0 0 20px rgba(194,22,185,.5);
-
-}
-
-
-.hero p{
-
-font-size:20px;
-color:#aaa;
-
-}
-
-
-/* FILTERS */
-
-
-.filters{
-
-display:flex;
-justify-content:center;
-gap:15px;
-
-margin-bottom:50px;
-
-flex-wrap:wrap;
-
-}
-
-
-.filter{
-
-padding:12px 25px;
-
-border-radius:30px;
-
-border:1px solid rgba(255,255,255,.1);
-
-background:#151515;
-
-color:#aaa;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-
-.filter:hover,
-.filter.active{
-
-background:#c216b9;
-color:white;
-
-box-shadow:
-0 0 25px rgba(194,22,185,.4);
-
-}
-
-
-
-
-/* PRODUCTS */
-
-
-.products-section{
-
-max-width:1300px;
-margin:auto;
-
-padding:20px;
-
-position:relative;
-z-index:5;
-
-}
-
-
-
-.products{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,330px);
-    justify-content:center;
-    gap:30px;
-}
-
-
-
-/* CARD */
-
-
-.product-item{
-
-background:
-linear-gradient(135deg,#121212,#1c1c1c);
-
-border-radius:22px;
-
-overflow:hidden;
-
-text-decoration:none;
-
-color:white;
-
-border:2px solid rgba(194,22,185,.2);
-
-transition:.4s;
-
-opacity:0;
-
-animation:appear .7s forwards;
-
-}
-
-
-@keyframes appear{
-
-from{
-
-opacity:0;
-transform:translateY(40px);
-
-}
-
-to{
-
-opacity:1;
-transform:none;
-
-}
-
-}
-
-
-.product-item:hover{
-
-transform:
-translateY(-12px)
-scale(1.03);
-
-
-border-color:#c216b9;
-
-
-box-shadow:
-
-0 20px 50px rgba(194,22,185,.25);
-
-}
-
-
-
-.product-item img{
-
-width:100%;
-
-height:200px;
-
-object-fit:cover;
-
-}
-
-
-
-.product-content{
-
-padding:25px;
-
-}
-
-
-.product-content h2{
-
-margin:0;
-
-color:#c216b9;
-
-font-size:24px;
-
-}
-
-
-
-.price{
-
-margin-top:12px;
-
-font-size:18px;
-
-color:#33ff7a;
-
-font-weight:700;
-
-}
-
-
-
-.description{
-
-margin-top:15px;
-
-color:#aaa;
-
-line-height:1.6;
-
-height:50px;
-
-overflow:hidden;
-
-}
-
-
-
-
-.button{
-
-margin-top:25px;
-
-display:inline-block;
-
-padding:12px 25px;
-
-border-radius:30px;
-
-background:
-linear-gradient(45deg,#c216b9,#3a0040);
-
-font-weight:600;
-
-transition:.3s;
-
-}
-
-
-.product-item:hover .button{
-
-box-shadow:
-0 0 25px rgba(194,22,185,.5);
-
-}
-
-
-
-
-@media(max-width:768px){
-
-.hero h1{
-    font-size:45px;
-}
-
-
-.products{
-    grid-template-columns:1fr;
-}
-
-}
-
-</style>
-
-
+    .filter:hover { color: var(--text); background: rgba(255, 255, 255, .04); }
+    .filter[aria-pressed="true"] { color: var(--text); background: rgba(196, 160, 255, .1); border-color: var(--line-strong); }
+    .filter span { color: var(--faint); font-size: 12.5px; }
+    .search { position: relative; flex: 0 1 240px; }
+    .search svg { position: absolute; left: 12px; top: 50%; width: 17px; height: 17px; transform: translateY(-50%); color: var(--faint); pointer-events: none; }
+    .search .input { min-height: 40px; padding-left: 38px; border-radius: 11px; font-size: 15px; }
+    .sort { min-height: 40px; padding: 0 34px 0 12px; border-radius: 11px; font-size: 14.5px; width: auto; appearance: none; cursor: pointer;
+      background: rgba(7, 6, 12, .7) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a39cb6' stroke-width='2'%3E%3Cpath d='M7 10l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 10px center / 16px; }
+    .count { color: var(--faint); font-size: 14px; margin-bottom: 14px; }
+    @media (max-width: 720px) {
+      .toolbar { position: static; }
+      .filters { flex-basis: 100%; }
+      .search { flex: 1 1 auto; }
+    }
+  </style>
 </head>
-
-
 <body>
-
-
-<div class="bg-animation"></div>
-
-<div class="particles" id="particles"></div>
-
-
-<div id="navbar"></div>
-
-
-
-<section class="hero">
-
-<h1>
-Explore Products
-</h1>
-
-<p>
-Premium solutions built for performance, security, and reliability.
-</p>
-
-</section>
-
-
-
-
-<section class="products-section">
-
-
-<div class="filters">
-
-<button class="filter active" onclick="filterProducts('All')">
-All
-</button>
-
-</div>
-
-
-<div class="products" id="products"></div>
-
-
-</section>
-
-
-
-
-<script>
-
-
-let allProducts=[];
-
-
-function createParticles(){
-
-let box=document.getElementById("particles");
-
-
-for(let i=0;i<60;i++){
-
-let p=document.createElement("div");
-
-p.className="particle";
-
-p.style.left=Math.random()*100+"%";
-
-p.style.animationDelay=Math.random()*15+"s";
-
-p.style.animationDuration=(10+Math.random()*10)+"s";
-
-
-box.appendChild(p);
-
-}
-
-}
-
-
-createParticles();
-
-
-
-async function loadProducts(){
-
-
-const response =
-await fetch("purchase/products.json");
-
-
-allProducts =
-await response.json();
-
-
-
-createFilters();
-
-displayProducts("All");
-
-
-}
-
-
-
-
-function createFilters(){
-
-
-let categories=[
-
-"All",
-
-...new Set(allProducts.map(x=>x.category))
-
-];
-
-
-let container=document.querySelector(".filters");
-
-
-container.innerHTML="";
-
-
-categories.forEach(cat=>{
-
-
-container.innerHTML+=`
-
-<button class="filter ${cat=="All"?"active":""}"
-onclick="filterProducts('${cat}',this)">
-
-${cat}
-
-</button>
-
-
-`;
-
-
-});
-
-
-}
-
-
-
-
-function filterProducts(category,btn){
-
-
-document.querySelectorAll(".filter")
-.forEach(x=>x.classList.remove("active"));
-
-
-if(btn)
-btn.classList.add("active");
-
-
-displayProducts(category);
-
-
-}
-
-
-
-
-
-function displayProducts(category){
-
-
-let container=document.getElementById("products");
-
-
-container.innerHTML="";
-
-
-let products =
-category=="All"
-?
-allProducts
-:
-allProducts.filter(x=>x.category==category);
-
-
-
-products.forEach((product,index)=>{
-
-
-container.innerHTML+=`
-
-<a class="product-item"
-style="animation-delay:${index*.1}s"
-href="purchase/product.html?id=${product.id}">
-
-
-<img src="${product.images[0]}">
-
-
-
-<div class="product-content">
-
-
-<h2>
-${product.title}
-</h2>
-
-
-<div class="price">
-
-Starting at $${product.startingPrice}
-
-</div>
-
-
-
-<div class="description">
-
-${product.description}
-
-</div>
-
-
-
-<div class="button">
-
-View Product
-
-</div>
-
-
-</div>
-
-
-</a>
-
-
-`;
-
-
-});
-
-
-}
-
-
-
-loadProducts();
-
-
-</script>
-
-
-<script src="navbar.js"></script>
-
-
+  <div data-site-nav></div>
+
+  <main id="main" class="wrap">
+    <header class="page-head">
+      <h1>Shop</h1>
+      <p>Every Razor product in one place. Pick one to see plans, screenshots and pricing.</p>
+    </header>
+
+    <div class="toolbar" role="search">
+      <div class="filters" id="filters" role="group" aria-label="Filter by category"></div>
+      <label class="search">
+        <span class="sr-only">Search products</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.3-4.3"/></svg>
+        <input class="input" id="q" type="search" placeholder="Search" autocomplete="off">
+      </label>
+      <label>
+        <span class="sr-only">Sort products</span>
+        <select class="input sort" id="sort">
+          <option value="default">Recommended</option>
+          <option value="low">Price: low to high</option>
+          <option value="high">Price: high to low</option>
+        </select>
+      </label>
+    </div>
+
+    <p class="count" id="count" aria-live="polite"></p>
+    <div class="product-grid" id="grid" aria-busy="true">
+      <div class="skeleton" style="height:380px"></div>
+      <div class="skeleton" style="height:380px"></div>
+      <div class="skeleton" style="height:380px"></div>
+    </div>
+  </main>
+
+  <div data-site-footer></div>
+
+  <script type="module">
+    const R = window.Razor;
+    const grid = document.getElementById("grid");
+    const filtersEl = document.getElementById("filters");
+    const q = document.getElementById("q");
+    const sortEl = document.getElementById("sort");
+    const countEl = document.getElementById("count");
+
+    const params = new URLSearchParams(location.search);
+    const state = { cat: params.get("category") || "All", q: params.get("q") || "", sort: params.get("sort") || "default" };
+    let all = [];
+
+    function syncURL() {
+      const p = new URLSearchParams();
+      if (state.cat !== "All") p.set("category", state.cat);
+      if (state.q) p.set("q", state.q);
+      if (state.sort !== "default") p.set("sort", state.sort);
+      history.replaceState(null, "", location.pathname + (p.toString() ? "?" + p : ""));
+    }
+
+    function renderFilters() {
+      const counts = all.reduce((m, p) => (m[p.category] = (m[p.category] || 0) + 1, m), {});
+      const cats = ["All", ...Object.keys(counts)];
+      if (!cats.includes(state.cat)) state.cat = "All";
+      filtersEl.innerHTML = cats.map((c) =>
+        '<button type="button" class="filter" data-cat="' + R.esc(c) + '" aria-pressed="' + (c === state.cat) + '">' +
+        R.esc(c) + "<span>" + (c === "All" ? all.length : counts[c]) + "</span></button>").join("");
+    }
+
+    function render() {
+      const term = state.q.trim().toLowerCase();
+      let list = all.filter((p) =>
+        (state.cat === "All" || p.category === state.cat) &&
+        (!term || [p.title, p.description, p.subtitle, p.category].join(" ").toLowerCase().includes(term)));
+      if (state.sort === "low") list = [...list].sort((a, b) => R.minPrice(a) - R.minPrice(b));
+      if (state.sort === "high") list = [...list].sort((a, b) => R.minPrice(b) - R.minPrice(a));
+
+      countEl.textContent = list.length === 1 ? "1 product" : list.length + " products";
+      grid.innerHTML = list.length
+        ? list.map((p, i) => R.productCard(p, { eager: i < 3 })).join("")
+        : '<div class="panel empty-state" style="grid-column:1/-1"><h2>No products match</h2><p>Try a different search or show every category.</p><button class="btn btn--primary" type="button" id="reset">Show all products</button></div>';
+      grid.removeAttribute("aria-busy");
+      syncURL();
+    }
+
+    filtersEl.addEventListener("click", (e) => {
+      const b = e.target.closest(".filter");
+      if (!b) return;
+      state.cat = b.dataset.cat;
+      filtersEl.querySelectorAll(".filter").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      render();
+    });
+    let t;
+    q.addEventListener("input", () => { clearTimeout(t); t = setTimeout(() => { state.q = q.value; render(); }, 120); });
+    sortEl.addEventListener("change", () => { state.sort = sortEl.value; render(); });
+    grid.addEventListener("click", (e) => {
+      if (!e.target.closest("#reset")) return;
+      state.cat = "All"; state.q = ""; q.value = "";
+      renderFilters(); render();
+    });
+
+    q.value = state.q;
+    sortEl.value = ["default", "low", "high"].includes(state.sort) ? state.sort : "default";
+
+    R.products().then((data) => { all = data; renderFilters(); render(); }).catch(() => {
+      grid.innerHTML = '<div class="panel empty-state" style="grid-column:1/-1"><h2>Products didn\'t load</h2><p>Check your connection and refresh. If it keeps happening, tell us in Discord.</p><button class="btn btn--primary" type="button" onclick="location.reload()">Refresh</button></div>';
+      grid.removeAttribute("aria-busy");
+    });
+  </script>
 </body>
 </html>
