@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>My orders | Razor</title>
+  <meta name="description" content="Orders you've started on this device, with their payment status.">
+  <meta name="theme-color" content="#07060c">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/images/razor_transparent.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;600;700;800&display=swap">
+  <link rel="stylesheet" href="/assets/css/razor.css">
+  <script src="/assets/js/razor.js" defer></script>
+  <script src="/assets/js/checkout.js" defer></script>
+  <script src="/assets/js/ltc.js" defer></script>
+  <style>
+    .orders { display: grid; gap: 12px; }
+    .order {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px 20px;
+      align-items: center;
+      padding: 20px clamp(18px, 3vw, 26px);
+    }
+    .order__top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .order__id { font-family: var(--font-mono); font-weight: 700; letter-spacing: .02em; }
+    .order h2 { margin-top: 8px; font: 600 17px/1.3 var(--font-display); }
+    .order__meta { margin-top: 4px; color: var(--muted); font-size: 14.5px; }
+    .order__actions { display: flex; gap: 8px; align-items: center; }
+    .order__del { width: 38px; padding: 0; color: var(--faint); }
+    .order__del:hover { color: var(--bad); }
+    .order__del svg { width: 16px; height: 16px; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 800; }
+    .pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+    .pill.ok { color: var(--ok); background: rgba(78, 229, 154, .1); }
+    .pill.warn { color: var(--warn); background: rgba(255, 201, 77, .1); }
+    .pill.bad { color: var(--bad); background: rgba(255, 93, 115, .1); }
+    .pill.idle { color: var(--muted); background: rgba(255, 255, 255, .05); }
+    .note { margin-top: 22px; color: var(--faint); font-size: 14px; max-width: 64ch; }
+    @media (max-width: 600px) {
+      .order { grid-template-columns: 1fr; }
+      .order__actions .btn:not(.order__del) { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div data-site-nav></div>
+
+  <main id="main" class="wrap" style="max-width:calc(860px + var(--gutter) * 2)">
+    <header class="page-head">
+      <h1>My orders</h1>
+      <p>Orders you've started on this device. Pick one up where you left off, or copy its ID for a ticket.</p>
+    </header>
+
+    <div class="orders" id="orders"></div>
+    <p class="note">Orders are stored only in this browser. Clearing site data or switching devices removes this list, but staff can always find an order from its ID and transaction ID.</p>
+  </main>
+
+  <div data-site-footer></div>
+
+  <script type="module">
+    const R = window.Razor, C = window.RazorCheckout, L = window.RazorLTC;
+    const box = document.getElementById("orders");
+    const fmt = new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+
+    function status(o) {
+      if (o.price === 0) return ["idle", "Boost reward"];
+      const p = o.payment;
+      if (p && p.toWallet) {
+        if (p.kind === "bad") return ["bad", "Paid less than quoted"];
+        return p.confirmed ? ["ok", "Payment confirmed"] : ["warn", "Payment pending"];
+      }
+      if (o.txid) return ["warn", "TXID added"];
+      return ["idle", "Awaiting payment"];
+    }
+
+    function render() {
+      const list = C.history();
+      const pill = document.querySelector(".nav__orders");
+      if (pill && !list.length) pill.remove();
+      else if (pill) { pill.querySelector("b").textContent = list.length; pill.setAttribute("aria-label", "My orders (" + list.length + ")"); }
+      if (!list.length) {
+        box.innerHTML = '<div class="panel empty-state"><h2>No orders yet</h2><p>When you check out, your order shows up here so you can come back to it.</p><a class="btn btn--primary" href="/explore.html">Browse the shop</a></div>';
+        return;
+      }
+      box.innerHTML = list.map((o) => {
+        const [kind, label] = status(o);
+        const q = C.query(o);
+        const next = o.txid || o.price === 0 ? "/purchase/order.html?" + q : "/purchase/payment.html?" + q;
+        const amount = o.price === 0 ? "Free" : R.money(o.price) + (o.ltcQuote ? " (" + L.fmtLtc(o.ltcQuote.ltc) + " LTC quoted)" : "");
+        return '<article class="panel order">' +
+          "<div>" +
+            '<div class="order__top"><span class="order__id">' + R.esc(o.id) + '</span><span class="pill ' + kind + '">' + label + "</span></div>" +
+            "<h2>" + R.esc(o.product) + "</h2>" +
+            '<p class="order__meta">' + R.esc(o.variant || "Default") + ", " + amount + ", " + fmt.format(new Date(o.createdAt || Date.now())) + "</p>" +
+          "</div>" +
+          '<div class="order__actions">' +
+            '<button class="btn btn--sm" type="button" data-copy="' + R.esc(o.id) + '">' + R.icon("copy") + "Copy ID</button>" +
+            '<a class="btn btn--sm btn--primary" href="' + next + '">' + (o.txid || o.price === 0 ? "View" : "Continue") + "</a>" +
+            '<button class="btn btn--sm order__del" type="button" data-del="' + R.esc(o.id) + '" aria-label="Remove order ' + R.esc(o.id) + '">' + R.icon("close") + "</button>" +
+          "</div>" +
+        "</article>";
+      }).join("");
+    }
+
+    box.addEventListener("click", (e) => {
+      const c = e.target.closest("[data-copy]");
+      if (c) return R.copy(c.dataset.copy, "Order ID");
+      const d = e.target.closest("[data-del]");
+      if (d && confirm("Remove order " + d.dataset.del + " from this device? Staff can still find it by ID.")) {
+        C.remove(d.dataset.del);
+        render();
+        R.toast("Order removed");
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+name: Validate site data
+
+on:
+  push:
+    paths: ["**.json", "images/**", "tools/validate_data.py", ".github/workflows/validate-data.yml"]
+  pull_request:
+    paths: ["**.json", "images/**", "tools/validate_data.py", ".github/workflows/validate-data.yml"]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python3 tools/validate_data.py

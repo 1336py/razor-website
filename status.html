@@ -46,6 +46,12 @@
     .incidents h2 { font: 700 18px/1.2 var(--font-display); }
     .incidents p { color: var(--muted); margin-top: 8px; }
     .stamp { margin-top: 16px; color: var(--faint); font-size: 13.5px; }
+    .incident { position: relative; margin-top: 18px; padding-left: 22px; }
+    .incident::before { content: ""; position: absolute; left: 4px; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--faint)); }
+    .incident.ok { --c: var(--ok); } .incident.warn { --c: var(--warn); } .incident.bad { --c: var(--bad); }
+    .incident h3 { font-size: 15.5px; }
+    .incident__meta { color: var(--faint); font-size: 13px; font-weight: 600; margin-top: 2px; }
+    .incident p { margin-top: 6px; font-size: 14.5px; }
   </style>
 </head>
 <body>
@@ -68,7 +74,7 @@
 
     <section class="panel incidents" aria-labelledby="inc-h">
       <h2 id="inc-h">Recent incidents</h2>
-      <p>No recent incidents reported. If something isn't working for you, open a ticket in our <a data-discord href="#">Discord</a>.</p>
+      <div id="incidents"><p>No recent incidents reported. If something isn't working for you, open a ticket in our <a data-discord href="#">Discord</a>.</p></div>
     </section>
 
     <p class="stamp" id="stamp"></p>
@@ -82,7 +88,10 @@
     const kind = (s) => KIND[String(s || "").toLowerCase()] || "bad";
 
     function load() {
-      R.getJSON("/status.json").then((services) => {
+      R.getJSON("/status.json").then((data) => {
+        // Accepts the old plain array or { updated, services, incidents }.
+        const services = Array.isArray(data) ? data : (data.services || []);
+        const incidents = Array.isArray(data.incidents) ? data.incidents : [];
         const kinds = services.map((s) => kind(s.status));
         const worst = kinds.includes("bad") ? "bad" : kinds.includes("warn") ? "warn" : "ok";
         const affected = services.filter((s) => kind(s.status) !== "ok").map((s) => s.service);
@@ -97,7 +106,17 @@
           '<div class="svc"><h3>' + R.esc(s.service) + "</h3><p>" + R.esc(s.description) + "</p>" +
           '<div class="svc__right"><span class="badge ' + kind(s.status) + '">' + R.esc(s.status) + "</span>" +
           (s.uptime ? '<span class="uptime">' + R.esc(s.uptime) + " uptime</span>" : "") + "</div></div>").join("");
-        document.getElementById("stamp").textContent = "Checked " + new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+        const day = (d) => { const t = new Date(d + "T12:00:00"); return isNaN(t) ? R.esc(d) : t.toLocaleDateString([], { month: "short", day: "numeric", year: "numeric" }); };
+        const IK = { resolved: "ok", monitoring: "warn", investigating: "bad", identified: "bad" };
+        if (incidents.length) {
+          document.getElementById("incidents").innerHTML = [...incidents]
+            .sort((a, b) => String(b.date).localeCompare(String(a.date))).slice(0, 5)
+            .map((i) => '<article class="incident ' + (IK[String(i.status || "").toLowerCase()] || "warn") + '"><h3>' + R.esc(i.title) + '</h3>' +
+              '<div class="incident__meta">' + R.esc(i.status || "Update") + ", " + day(i.date) + "</div>" +
+              (i.details ? "<p>" + R.esc(i.details) + "</p>" : "") + "</article>").join("");
+        }
+        document.getElementById("stamp").textContent = (data.updated ? "Updated by staff " + day(data.updated) + ". " : "") +
+          "Checked " + new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) + ".";
       }).catch(() => {
         document.getElementById("overall").className = "panel overall warn";
         document.getElementById("overall-title").textContent = "Status unavailable";

@@ -13,21 +13,33 @@
   <link rel="stylesheet" href="/assets/css/razor.css">
   <script src="/assets/js/razor.js" defer></script>
   <script src="/assets/js/checkout.js" defer></script>
+  <script src="/assets/js/ltc.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
   <style>
-    .pay { display: grid; grid-template-columns: 1fr auto; gap: 22px; align-items: center; margin-top: 24px; padding: 20px; border: 1px solid var(--line-strong); border-radius: var(--r-md); background: rgba(7, 6, 12, .55); }
+    .pay { display: grid; grid-template-columns: 1fr auto; gap: 22px; align-items: start; margin-top: 24px; padding: 20px; border: 1px solid var(--line-strong); border-radius: var(--r-md); background: rgba(7, 6, 12, .55); }
     .pay h2 { display: flex; align-items: center; gap: 10px; font: 700 18px/1.2 var(--font-display); }
     .pay h2 img { width: 26px; height: 26px; }
-    .pay__amt { margin-top: 10px; color: var(--muted); font-size: 14.5px; }
-    .pay__amt b { color: var(--text); }
-    .wallet { display: flex; gap: 8px; margin-top: 14px; }
+    .amount { margin-top: 16px; }
+    .amount__ltc { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .amount__ltc strong { font: 700 clamp(24px, 4vw, 30px)/1.1 var(--font-display); letter-spacing: -.01em; }
+    .amount__ltc strong small { font-size: .55em; color: var(--muted); margin-left: 4px; }
+    .amount__meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 6px; color: var(--faint); font-size: 13.5px; font-weight: 600; }
+    .amount__meta button { display: inline-flex; align-items: center; gap: 5px; padding: 0; border: 0; background: none; color: var(--muted); font: inherit; cursor: pointer; }
+    .amount__meta button:hover { color: var(--text); }
+    .amount__meta button svg { width: 14px; height: 14px; }
+    .amount__meta button.is-spinning svg { animation: spin .8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .wallet { display: flex; gap: 8px; margin-top: 16px; }
     .wallet .input { min-width: 0; font-size: 13.5px; }
+    .qr-wrap { display: grid; gap: 10px; justify-items: center; }
     .qr { display: grid; place-items: center; width: 168px; height: 168px; padding: 10px; border-radius: 14px; background: #fff; }
     .qr img, .qr canvas { width: 148px !important; height: 148px !important; }
     .qr__fallback { color: #333; font-size: 12px; text-align: center; padding: 8px; }
+    .qr-wrap a { color: var(--muted); font-size: 13px; font-weight: 700; text-decoration: none; }
+    .qr-wrap a:hover { color: var(--text); }
     @media (max-width: 600px) {
       .pay { grid-template-columns: 1fr; }
-      .qr { justify-self: center; order: -1; }
+      .qr-wrap { order: -1; }
     }
   </style>
 </head>
@@ -43,23 +55,64 @@
   <div data-site-footer></div>
 
   <script type="module">
-    const R = window.Razor, C = window.RazorCheckout;
+    const R = window.Razor, C = window.RazorCheckout, L = window.RazorLTC;
     const flow = document.getElementById("flow");
     const wallet = R.config.ltcWallet;
+    let order, quote = null;
 
-    function renderQR() {
+    function drawQR() {
       const box = document.getElementById("qr");
       if (!box) return;
+      const link = document.getElementById("wallet-link");
+      if (link) link.href = L.paymentUri(wallet, quote && quote.ltc);
       if (typeof window.QRCode !== "function") {
         box.innerHTML = '<p class="qr__fallback">QR code unavailable. Copy the address instead.</p>';
         return;
       }
       box.innerHTML = "";
-      new window.QRCode(box, { text: wallet, width: 148, height: 148, correctLevel: window.QRCode.CorrectLevel.M });
-      box.title = "";
+      new window.QRCode(box, { text: L.paymentUri(wallet, quote && quote.ltc), width: 148, height: 148, correctLevel: window.QRCode.CorrectLevel.M });
+      box.removeAttribute("title");
     }
 
-    C.current().then((order) => {
+    function showQuote(state) {
+      const amt = document.getElementById("ltc-amount");
+      const meta = document.getElementById("ltc-meta");
+      const copyBtn = document.getElementById("copy-amount");
+      if (state === "loading") {
+        amt.innerHTML = "Getting live rate…";
+        return;
+      }
+      if (!quote) {
+        amt.innerHTML = R.money(order.price) + "<small>USD in LTC</small>";
+        meta.firstElementChild.textContent = "Live rate unavailable. Convert at your wallet's current rate.";
+        copyBtn.hidden = true;
+        return;
+      }
+      amt.innerHTML = L.fmtLtc(quote.ltc) + "<small>LTC</small>";
+      const t = new Date(quote.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+      meta.firstElementChild.textContent = "≈ " + R.money(order.price) + " at $" + quote.usd.toFixed(2) + "/LTC via " + quote.source + ", " + t;
+      copyBtn.hidden = false;
+    }
+
+    async function loadQuote(force) {
+      const btn = document.getElementById("refresh-rate");
+      btn.classList.add("is-spinning");
+      if (!quote) showQuote("loading");
+      try {
+        const r = await L.rate(force);
+        const ltc = L.usdToLtc(order.price, r.usd);
+        quote = ltc ? { ltc, usd: r.usd, at: r.at, source: r.source } : null;
+        if (quote) C.patch(order.id, { ltcQuote: quote });
+      } catch (e) {
+        quote = null;
+      }
+      btn.classList.remove("is-spinning");
+      showQuote();
+      drawQR();
+    }
+
+    C.current().then((o) => {
+      order = o;
       if (!order) { flow.innerHTML = C.missing(); return; }
       const next = "/purchase/order.html?" + C.query(order);
       const free = order.price === 0;
@@ -69,12 +122,17 @@
         : '<div class="pay">' +
             "<div>" +
               '<h2><img src="/assets/icons/ltc%20white.png" alt="" width="26" height="26">Pay with Litecoin</h2>' +
-              '<p class="pay__amt">Send LTC worth <b>' + R.money(order.price) + ' USD</b> at the current rate to:</p>' +
+              '<div class="amount"><span class="field-label">Send exactly</span>' +
+                '<div class="amount__ltc"><strong id="ltc-amount" aria-live="polite"></strong>' +
+                '<button class="btn btn--sm" type="button" id="copy-amount" hidden>' + R.icon("copy") + "Copy</button></div>" +
+                '<div class="amount__meta" id="ltc-meta"><span></span><button type="button" id="refresh-rate" aria-label="Refresh rate">' + R.icon("refresh") + "Refresh</button></div>" +
+              "</div>" +
               '<div class="wallet"><label class="sr-only" for="wallet">Litecoin address</label><input class="input input--mono" id="wallet" readonly value="' + R.esc(wallet) + '"><button class="btn" type="button" id="copy-wallet">' + R.icon("copy") + "Copy</button></div>" +
             "</div>" +
-            '<div class="qr" id="qr" role="img" aria-label="QR code for the Litecoin address"></div>' +
+            '<div class="qr-wrap"><div class="qr" id="qr" role="img" aria-label="QR code with the Litecoin address and amount"></div>' +
+            '<a id="wallet-link" href="' + L.paymentUri(wallet) + '">Open in wallet app</a></div>' +
           "</div>" +
-          '<div class="notice">' + R.icon("alert") + "<span>Only send Litecoin (LTC) to this address. Coins sent on another network can't be recovered.</span></div>";
+          '<div class="notice">' + R.icon("alert") + "<span>Only send Litecoin (LTC) to this address. Coins sent on another network can't be recovered. Rates move, so send soon after loading this page.</span></div>";
 
       flow.innerHTML =
         C.steps(1) +
@@ -91,18 +149,14 @@
           '<div class="actions"><a class="btn btn--primary btn--lg" href="' + next + '">' + (free ? "Continue" : "I've completed payment") + "</a></div>" +
         "</section>";
 
-      const copyBtn = document.getElementById("copy-wallet");
-      if (copyBtn) copyBtn.addEventListener("click", () => R.copy(wallet, "Wallet address"));
+      if (free) return;
+      document.getElementById("copy-wallet").addEventListener("click", () => R.copy(wallet, "Wallet address"));
+      document.getElementById("copy-amount").addEventListener("click", () => quote && R.copy(L.fmtLtc(quote.ltc), "Amount"));
+      document.getElementById("refresh-rate").addEventListener("click", () => loadQuote(true));
       const w = document.getElementById("wallet");
-      if (w) w.addEventListener("focus", () => w.select());
-
-      if (!free) {
-        if (typeof window.QRCode === "function") renderQR();
-        else window.addEventListener("load", renderQR, { once: true });
-      }
-    }).catch(() => {
-      flow.innerHTML = C.missing();
-    });
+      w.addEventListener("focus", () => w.select());
+      loadQuote(false);
+    }).catch(() => { flow.innerHTML = C.missing(); });
   </script>
 </body>
 </html>
