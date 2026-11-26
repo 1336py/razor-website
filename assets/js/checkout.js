@@ -6,6 +6,8 @@
   const R = window.Razor;
   const ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
   const MAX_AGE = 24 * 60 * 60 * 1000;
+  const HISTORY_KEY = "razorOrders";
+  const HISTORY_MAX = 25;
 
   function newOrderId() {
     const bytes = new Uint8Array(6);
@@ -41,6 +43,36 @@
     };
   }
 
+  /* ───── Order history (this device only) ───── */
+  function history() {
+    const list = R.store.get(HISTORY_KEY);
+    return Array.isArray(list) ? list.filter((o) => o && validId(o.id)).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)) : [];
+  }
+
+  // Insert or merge an order into history and make it the current order.
+  function save(order) {
+    const list = history();
+    const i = list.findIndex((o) => o.id === order.id);
+    const merged = i >= 0 ? Object.assign({}, list[i], order) : order;
+    if (i >= 0) list[i] = merged; else list.unshift(merged);
+    R.store.set(HISTORY_KEY, list.slice(0, HISTORY_MAX));
+    R.store.set(R.config.orderKey, merged);
+    return merged;
+  }
+
+  // Merge fields into a saved order (e.g. txid, payment check, LTC quote).
+  function patch(id, fields) {
+    const found = history().find((o) => o.id === id) || (R.store.get(R.config.orderKey) || {});
+    if (found.id !== id) return null;
+    return save(Object.assign({}, found, fields, { updatedAt: Date.now() }));
+  }
+
+  function remove(id) {
+    R.store.set(HISTORY_KEY, history().filter((o) => o.id !== id));
+    const cur = R.store.get(R.config.orderKey);
+    if (cur && cur.id === id) { try { localStorage.removeItem(R.config.orderKey); } catch (e) {} }
+  }
+
   function query(order) {
     const q = new URLSearchParams({ order: order.id, p: order.productId, v: String(order.variantIndex) });
     if (order.coupon) q.set("c", order.coupon);
@@ -57,10 +89,9 @@
     const prev = R.store.get(R.config.orderKey);
     const reuse = prev && validId(prev.id) && prev.productId === draft.productId &&
       prev.variantIndex === draft.variantIndex && (prev.coupon || "") === draft.coupon &&
-      Date.now() - (prev.createdAt || 0) < MAX_AGE;
-    const order = reuse ? Object.assign(draft, { id: prev.id, createdAt: prev.createdAt }) : draft;
-    R.store.set(R.config.orderKey, order);
-    return order;
+      Date.now() - (prev.createdAt || 0) < MAX_AGE && !prev.txid; // a paid order is never reused
+    const order = reuse ? Object.assign({}, prev, draft, { id: prev.id, createdAt: prev.createdAt }) : draft;
+    return save(order);
   }
 
   // payment.html / order.html: read the order back
@@ -69,13 +100,13 @@
     const urlId = q.get("order");
     const saved = R.store.get(R.config.orderKey);
     if (saved && validId(saved.id) && (!urlId || urlId === saved.id) && saved.product) return saved;
+    const past = validId(urlId) && history().find((o) => o.id === urlId);
+    if (past) return save(past);
     if (validId(urlId) && q.get("p")) {
       const all = await R.products();
       const product = all.find((p) => p.id === q.get("p"));
       if (product) {
-        const order = build(product, q.get("v"), q.get("c"), urlId);
-        R.store.set(R.config.orderKey, order);
-        return order;
+        return save(build(product, q.get("v"), q.get("c"), urlId));
       }
     }
     return null;
@@ -105,5 +136,5 @@
     return '<div class="panel empty-state"><h2>No active order found</h2><p>Your order details weren\'t found on this device. Start again from the shop. It only takes a minute.</p><a class="btn btn--primary" href="/explore.html">Go to the shop</a></div>';
   }
 
-  window.RazorCheckout = { createFromURL, current, query, steps, summary, missing };
+  window.RazorCheckout = { createFromURL, current, query, steps, summary, missing, history, save, patch, remove };
 })();

@@ -565,3 +565,60 @@ p { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+/* ───────── Payment check verdict ───────── */
+
+.verdict {
+  display: flex; gap: 12px; align-items: flex-start;
+  margin-top: 14px; padding: 14px 16px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+  font-size: 14.5px;
+  animation: toast-in .3s var(--ease);
+}
+.verdict svg { width: 18px; height: 18px; flex: none; margin-top: 2px; }
+.verdict a { color: inherit; font-weight: 700; }
+.verdict.is-ok { border-color: rgba(78, 229, 154, .35); background: rgba(78, 229, 154, .07); color: #bdf5d8; }
+.verdict.is-ok svg { color: var(--ok); }
+.verdict.is-warn { border-color: rgba(255, 201, 77, .3); background: rgba(255, 201, 77, .06); color: #f3dfae; }
+.verdict.is-warn svg { color: var(--warn); }
+.verdict.is-bad { border-color: rgba(255, 93, 115, .35); background: rgba(255, 93, 115, .07); color: #ffc4cd; }
+.verdict.is-bad svg { color: var(--bad); }
+.flow__foot { margin-top: 18px; text-align: center; color: var(--faint); font-size: 13.5px; }
+.flow__foot a { color: var(--muted); }
+
+/* ───────── Nav orders pill ───────── */
+
+.nav__orders {
+  display: inline-flex; align-items: center; gap: 7px;
+  min-height: 38px; padding: 0 12px;
+  border: 1px solid var(--line); border-radius: 10px;
+  color: var(--muted); text-decoration: none;
+  font-size: 14px; font-weight: 700;
+  transition: color .2s, border-color .2s;
+}
+.nav__orders:hover, .nav__orders[aria-current="page"] { color: var(--text); border-color: var(--line-strong); }
+.nav__orders b { display: grid; place-items: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: var(--grad); color: #fff; font-size: 11.5px; }
+.nav__orders svg { width: 17px; height: 17px; }
+@media (max-width: 900px) { .nav__orders { margin-left: auto; } .nav__orders ~ .nav__toggle { margin-left: 0; } .nav__orders ~ .nav__cta { display: none; } }
+@media (max-width: 420px) { .nav__orders span { display: none; } }
+
+/* ───────── Image fade-in ───────── */
+
+.fade-img { opacity: 0; transition: opacity .5s var(--ease), transform .6s var(--ease); }
+.fade-img.is-loaded { opacity: 1; }
+
+/* ───────── Cross-page transitions (supporting browsers only) ───────── */
+
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .22s; }
+  .nav { view-transition-name: site-nav; }
+}
+
+kbd {
+  display: inline-grid; place-items: center;
+  min-width: 22px; height: 22px; padding: 0 6px;
+  border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px;
+  color: var(--faint); font: 700 12px/1 var(--font-body);
+}

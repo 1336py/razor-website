@@ -32,6 +32,7 @@
     clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
     play: '<path d="M8 5.5v13l10.5-6.5z" fill="currentColor" stroke="none"/>',
     plus: '<path d="M12 5v14M5 12h14"/>',
+    share: '<circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4.1M8.2 13.2l7.6 4.1"/>',
     expand: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
     cpu: '<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9.5 9.5h5v5h-5zM9 2.5V6M15 2.5V6M9 18v3.5M15 18v3.5M2.5 9H6M2.5 15H6M18 9h3.5M18 15h3.5"/>',
     discord: '<path fill="currentColor" stroke="none" d="M19.3 5.4A16.6 16.6 0 0 0 15.2 4l-.5 1.1a15.4 15.4 0 0 0-5.4 0L8.8 4a16.5 16.5 0 0 0-4.1 1.4C2.1 9.3 1.4 13.1 1.7 16.8a16.7 16.7 0 0 0 5.1 2.6l1.1-1.8c-.6-.2-1.2-.5-1.7-.9l.4-.3a11.9 11.9 0 0 0 10.2 0l.4.3c-.5.4-1.1.7-1.7.9l1.1 1.8a16.6 16.6 0 0 0 5.1-2.6c.4-4.3-.7-8.1-2.6-11.4zM8.7 14.5c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/>',
@@ -95,7 +96,7 @@
     return (
       '<a class="p-card" href="/purchase/product.html?id=' + encodeURIComponent(p.id) + '">' +
         '<div class="p-card__media">' +
-          (img ? '<img src="' + esc(thumb(img)) + '" alt="" loading="' + (opts.eager ? "eager" : "lazy") + '" decoding="async" width="640" height="360">' : "") +
+          (img ? '<img class="fade-img" src="' + esc(thumb(img)) + '" alt="" loading="' + (opts.eager ? "eager" : "lazy") + '" decoding="async" width="640" height="360" onload="this.classList.add(\'is-loaded\')" onerror="this.classList.add(\'is-loaded\')">' : "") +
           (p.category ? '<span class="chip">' + esc(p.category) + "</span>" : "") +
         "</div>" +
         '<div class="p-card__body">' +
@@ -209,6 +210,16 @@
     return (item.match || [item.href]).some((m) => (m.endsWith("/") ? path.startsWith(m) : path === m || path === m.replace(/\.html$/, "")));
   }
 
+  // Shown only once this device has an order, so first-time visitors see a clean bar.
+  function ordersPill() {
+    const list = store.get("razorOrders");
+    const n = Array.isArray(list) ? list.length : 0;
+    if (!n) return "";
+    const here = location.pathname === "/orders.html" ? ' aria-current="page"' : "";
+    return '<a class="nav__orders" href="/orders.html"' + here + ' aria-label="My orders (' + n + ')">' +
+      icon("tag") + "<span>Orders</span><b>" + n + "</b></a>";
+  }
+
   function renderNav(host) {
     host.outerHTML =
       '<header class="nav" id="site-nav"><div class="wrap"><nav class="nav__bar" aria-label="Main">' +
@@ -217,6 +228,7 @@
           NAV.map((n) => '<li><a href="' + n.href + '"' + (isCurrent(n) ? ' aria-current="page"' : "") + ">" + n.label + "</a></li>").join("") +
           '<li class="nav__mobile-cta"><a class="btn btn--discord btn--block" href="' + config.discord + '" target="_blank" rel="noopener">' + icon("discord") + "Join Discord</a></li>" +
         "</ul>" +
+        ordersPill() +
         '<a class="btn btn--discord btn--sm nav__cta" href="' + config.discord + '" target="_blank" rel="noopener">' + icon("discord") + "Discord</a>" +
         '<button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span></button>' +
       "</nav></div></header>";
@@ -249,7 +261,7 @@
         '<div class="footer__inner">' +
           '<div class="footer__brand"><a class="brand" href="/"><img src="/images/opt/razor.webp" alt="" width="30" height="30" loading="lazy">RAZOR</a>' +
           "<p>Spoofers, unban methods and AI aim, delivered and supported through Discord.</p></div>" +
-          '<div><h3>Shop</h3><ul><li><a href="/explore.html">All products</a></li><li><a href="/vouches.html">Vouches</a></li><li><a href="/status.html">Status</a></li></ul></div>' +
+          '<div><h3>Shop</h3><ul><li><a href="/explore.html">All products</a></li><li><a href="/orders.html">My orders</a></li><li><a href="/vouches.html">Vouches</a></li><li><a href="/status.html">Status</a></li></ul></div>' +
           '<div><h3>Help</h3><ul><li><a href="/faq.html">FAQ</a></li><li><a href="/contact.html">Contact</a></li><li><a href="/terms.html">Terms of service</a></li><li><a href="' + config.discord + '" target="_blank" rel="noopener">Discord</a></li></ul></div>' +
         "</div>" +
         '<div class="footer__base"><span>© ' + new Date().getFullYear() + " Razor</span><span>Payments in Litecoin, verified by staff in Discord.</span></div>" +
@@ -266,6 +278,14 @@
     if (navHost) renderNav(navHost);
     const footHost = document.querySelector("[data-site-footer]");
     if (footHost) renderFooter(footHost);
+    // "/" focuses the page's search field, like most storefronts and docs sites.
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "/" || e.ctrlKey || e.metaKey || e.altKey) return;
+      const t = e.target;
+      if (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
+      const field = document.querySelector("[data-search]");
+      if (field) { e.preventDefault(); field.focus(); field.select(); }
+    });
     document.querySelectorAll("[data-discord]").forEach((a) => { a.href = config.discord; a.target = "_blank"; a.rel = "noopener"; });
   }
 
