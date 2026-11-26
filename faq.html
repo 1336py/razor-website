@@ -1,623 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Razor | FAQ</title>
-
-<meta property="og:title" content="Razor">
-<meta property="og:description" content="Frequently Asked Questions">
-<meta property="og:url" content="https://razorfn.xyz">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://razorfn.xyz/images/razor_transparent.png">
-
-
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-
-
-<style>
-
-*{
-    box-sizing:border-box;
-}
-
-
-body{
-
-margin:0;
-
-background:#0a0a0a;
-
-color:white;
-
-font-family:'Montserrat',sans-serif;
-
-overflow-x:hidden;
-
-}
-
-
-
-.bg-animation{
-
-position:fixed;
-
-inset:0;
-
-z-index:-1;
-
-
-background:
-
-radial-gradient(circle at 20% 40%,rgba(194,22,185,.15),transparent 40%),
-
-radial-gradient(circle at 80% 20%,rgba(58,0,64,.15),transparent 40%),
-
-radial-gradient(circle at 50% 80%,rgba(194,22,185,.1),transparent 40%);
-
-animation:bgMove 20s infinite alternate;
-
-}
-
-
-
-@keyframes bgMove{
-
-from{
-filter:hue-rotate(0deg);
-}
-
-to{
-filter:hue-rotate(40deg);
-}
-
-}
-
-
-
-
-.particles{
-
-position:fixed;
-
-inset:0;
-
-pointer-events:none;
-
-}
-
-
-
-.particle{
-
-position:absolute;
-
-width:2px;
-
-height:2px;
-
-background:#c216b9;
-
-border-radius:50%;
-
-animation:float 15s linear infinite;
-
-}
-
-
-
-@keyframes float{
-
-0%{
-
-transform:translateY(100vh);
-
-opacity:0;
-
-}
-
-
-20%{
-
-opacity:1;
-
-}
-
-
-100%{
-
-transform:translateY(-100vh);
-
-opacity:0;
-
-}
-
-}
-
-
-
-
-.header{
-
-text-align:center;
-
-padding:90px 20px 50px;
-
-}
-
-
-
-.header h1{
-
-font-size:70px;
-
-margin:0;
-
-color:#c216b9;
-
-text-shadow:
-
-0 0 20px rgba(194,22,185,.5);
-
-}
-
-
-
-.header p{
-
-font-size:20px;
-
-color:#aaa;
-
-}
-
-
-
-
-
-.faq-container{
-
-max-width:900px;
-
-margin:auto;
-
-padding:20px;
-
-}
-
-
-
-.faq{
-
-background:
-
-linear-gradient(135deg,#121212,#1c1c1c);
-
-border:2px solid rgba(194,22,185,.2);
-
-border-radius:18px;
-
-margin-bottom:20px;
-
-overflow:hidden;
-
-transition:.3s;
-
-opacity:0;
-
-animation:fade .6s forwards;
-
-}
-
-
-
-@keyframes fade{
-
-from{
-
-opacity:0;
-
-transform:translateY(30px);
-
-}
-
-to{
-
-opacity:1;
-
-transform:none;
-
-}
-
-}
-
-
-
-
-.faq:hover{
-
-border-color:#c216b9;
-
-box-shadow:
-
-0 15px 40px rgba(194,22,185,.2);
-
-}
-
-
-
-.question{
-
-padding:25px;
-
-font-size:20px;
-
-font-weight:700;
-
-cursor:pointer;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-}
-
-
-
-.question span{
-
-color:#c216b9;
-
-font-size:28px;
-
-transition:.3s;
-
-}
-
-
-
-.answer{
-
-max-height:0;
-
-overflow:hidden;
-
-padding:0 25px;
-
-color:#aaa;
-
-line-height:1.7;
-
-transition:.4s;
-
-}
-
-
-
-.faq.active .answer{
-
-max-height:300px;
-
-padding-bottom:25px;
-
-}
-
-
-
-.faq.active .question span{
-
-transform:rotate(45deg);
-
-}
-
-
-
-@media(max-width:768px){
-
-.header h1{
-
-font-size:45px;
-
-}
-
-}
-
-
-
-</style>
-
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>FAQ | Razor</title>
+  <meta name="description" content="Answers about buying, delivery, payments, updates, refunds and support at Razor.">
+  <meta name="theme-color" content="#07060c">
+  <link rel="icon" href="/images/razor_transparent.png">
+  <meta property="og:title" content="Razor | FAQ">
+  <meta property="og:description" content="Frequently Asked Questions">
+  <meta property="og:url" content="https://razorfn.xyz/faq.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://razorfn.xyz/images/razor_transparent.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;600;700;800&display=swap">
+  <link rel="stylesheet" href="/assets/css/razor.css">
+  <script src="/assets/js/razor.js" defer></script>
+  <style>
+    .faq-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: clamp(24px, 5vw, 64px); align-items: start; }
+    .faq-side { position: sticky; top: calc(var(--nav-h) + 32px); display: grid; gap: 4px; }
+    .faq-side a { padding: 8px 12px; border-radius: 10px; color: var(--muted); text-decoration: none; font-weight: 700; font-size: 14.5px; }
+    .faq-side a:hover { color: var(--text); background: rgba(255, 255, 255, .04); }
+    @media (max-width: 860px) { .faq-layout { grid-template-columns: 1fr; } .faq-side { display: none; } }
+
+    .faq-search { position: relative; display: block; margin-bottom: 28px; }
+    .faq-search svg { position: absolute; left: 14px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); color: var(--faint); }
+    .faq-search .input { padding-left: 44px; min-height: 52px; border-radius: 14px; }
+
+    .group + .group { margin-top: 36px; }
+    .group h2 { font: 700 15px/1.2 var(--font-display); color: var(--muted); margin-bottom: 12px; }
+    .qa { border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); transition: border-color .25s; }
+    .qa + .qa { margin-top: 8px; }
+    .qa[open] { border-color: var(--line-strong); }
+    .qa summary {
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      padding: 18px 20px;
+      font-weight: 700; font-size: 16px;
+      cursor: pointer; list-style: none;
+    }
+    .qa summary::-webkit-details-marker { display: none; }
+    .qa summary svg { flex: none; width: 20px; height: 20px; color: var(--pink); transition: transform .3s var(--ease); }
+    .qa[open] summary svg { transform: rotate(45deg); }
+    .qa summary:hover { color: #fff; }
+    .qa__a { padding: 0 20px 20px; color: var(--muted); max-width: 70ch; }
+    .qa__a a { color: var(--pink); }
+    .qa[open] .qa__a { animation: drop .3s var(--ease); }
+    @keyframes drop { from { opacity: 0; transform: translateY(-4px); } }
+    .no-hits { color: var(--muted); padding: 20px 0; }
+    .faq-cta { margin-top: 48px; display: flex; justify-content: space-between; align-items: center; gap: 18px; flex-wrap: wrap; padding: 24px 26px; }
+    .faq-cta h2 { font: 700 19px/1.2 var(--font-display); }
+    .faq-cta p { color: var(--muted); margin-top: 4px; }
+  </style>
 </head>
-
-
-
 <body>
+  <div data-site-nav></div>
 
+  <main id="main" class="wrap">
+    <header class="page-head">
+      <h1>Frequently asked questions</h1>
+      <p>Quick answers about buying, delivery and support. Anything else, ask in Discord.</p>
+    </header>
 
-<div class="bg-animation"></div>
+    <div class="faq-layout">
+      <nav class="faq-side" aria-label="FAQ sections">
+        <a href="#buying">Buying</a>
+        <a href="#products">Products</a>
+        <a href="#support">Support</a>
+        <a href="#policies">Policies</a>
+      </nav>
 
-<div class="particles" id="particles"></div>
+      <div>
+        <label class="faq-search">
+          <span class="sr-only">Search questions</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.3-4.3"/></svg>
+          <input class="input" id="faq-q" type="search" placeholder="Search questions" autocomplete="off">
+        </label>
 
+        <section class="group" id="buying">
+          <h2>Buying</h2>
+          <details class="qa"><summary>What is Razor?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="qa__a">Razor is a premium software platform focused on reliable, optimized solutions with a strong focus on performance, security and customer support. Our products get continuous improvements and updates to give you the best possible experience.</div></details>
+          <details class="qa"><summary>How do I purchase a product?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="qa__a">Open a product in the <a href="/explore.html">shop</a>, choose a plan and select Buy now. Checkout gives you an order ID and our Litecoin address. If you have questions before buying, our support team is available in Discord.</div></details>
+          <details class="qa"><summary>What payment methods do you accept?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="qa__a">Only crypto (Litecoin) is accepted on the site. We accept many other methods in our Discord server, so open a ticket to ask.</div></details>
+          <details class="qa"><summary>How do discount codes work?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="qa__a">Enter your code on the product page. A valid code is saved to your order details, and staff apply the discount when they verify your order in Discord.</div></details>
+          <details class="qa"><summary>How do I receive my product after purchase?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="qa__a">After your payment confirms, open a ticket in our Discord and send your order ID and transaction ID. Once the payment is verified, our team delivers your product.</div></details>
+        </section>
 
-<div id="navbar"></div>
+        <section class="group" id="products">
+          <h2>Products</h2>
+          <details class="qa"><summary>Are Razor products compatible with Windows 10 and Windows 11?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="qa__a">Compatibility depends on the individual product. Each product is built to support as many systems as possible. Ask in Discord if you want to confirm before buying.</div></details>
+          <details class="qa"><summary>Do I receive updates after purchasing?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="qa__a">Yes, according to the plan you bought. We continuously work on reliability, compatibility and the overall experience.</div></details>
+          <details class="qa"><summary>Can I try a product before purchasing?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="qa__a">Trials aren't available due to the nature of our products. The shorter plans are the cheapest way to start.</div></details>
+          <details class="qa"><summary>Can I transfer my purchase to another account or device?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="qa__a">No. Transferring a purchase between devices is prohibited.</div></details>
+        </section>
 
+        <section class="group" id="support">
+          <h2>Support</h2>
+          <details class="qa"><summary>Do you provide customer support?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="qa__a">Yes. Razor provides support through our official Discord server: purchase questions, product information, troubleshooting and general requests.</div></details>
+          <details class="qa"><summary>How long does support take to respond?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="qa__a">It depends on current volume and availability. We aim to respond as quickly as possible, normally within an hour of a ticket being opened.</div></details>
+          <details class="qa"><summary>Where can I get support?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="qa__a">Our official support channel is <a data-discord href="#">Discord</a>. It's the fastest and most reliable way to reach the Razor team about products, purchases and help.</div></details>
+        </section>
 
+        <section class="group" id="policies">
+          <h2>Policies</h2>
+          <details class="qa"><summary>Are purchases refundable?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="qa__a">Refund eligibility depends on the circumstances and whether the product has already been delivered or used. See our <a href="/terms.html#refunds">Terms of Service</a> for full details.</div></details>
+          <details class="qa"><summary>Is my information secure?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="qa__a">Razor takes customer privacy and security seriously. We only collect the information needed to provide our services and keep the experience reliable.</div></details>
+        </section>
 
-<section class="header">
+        <p class="no-hits" id="no-hits" hidden>No questions match that search. Try another word, or ask us in Discord.</p>
 
-<h1>
-FAQ
-</h1>
-
-
-<p>
-Frequently asked questions about Razor.
-</p>
-
-
-</section>
-
-
-
-<section class="faq-container">
-
-
-
-<div class="faq">
-
-<div class="question">
-What is Razor?
-<span>+</span>
-</div>
-
-<div class="answer">
-Razor is a premium software platform focused on providing reliable, optimized solutions with a strong focus on performance, security, and customer support. Our products are developed with continuous improvements and updates to provide the best possible experience for our customers.
-</div>
-
-</div>
-
-
-
-<div class="faq">
-
-<div class="question">
-How do I purchase a product?
-<span>+</span>
-</div>
-
-<div class="answer">
-To purchase a product, visit the product page, select the solution you are interested in, and follow the provided purchase instructions. If you have any questions before purchasing, our support team is available through Discord.
-</div>
-
-</div>
-
-
-
-<div class="faq">
-
-<div class="question">
-How do I receive my product after purchase?
-<span>+</span>
-</div>
-
-    <div class="answer">
-        After your payment has been confirmed, simply send your payment confirmation to our Discord support team. Once your payment has been verified, our team will provide your purchased product.
+        <div class="panel faq-cta">
+          <div><h2>Still stuck?</h2><p>Open a ticket and a team member will help.</p></div>
+          <a class="btn btn--discord" data-discord href="#">Open a ticket in Discord</a>
+        </div>
+      </div>
     </div>
-
-</div>
-
-
-<div class="faq">
-
-<div class="question">
-What payment methods do you accept?
-<span>+</span>
-</div>
-
-<div class="answer">
-Only crypto is accepted on our site; however, we accept many others in our Discord server.
-</div>
-
-</div>
-
-
-
-<div class="faq">
-
-<div class="question">
-Are Razor products compatible with Windows 10 and Windows 11?
-<span>+</span>
-</div>
-
-<div class="answer">
-Compatibility depends on the individual product. Each product is intended to support as many systems as possible.
-</div>
-
-</div>
-
-
-
-<div class="faq">
-
-<div class="question">
-Do I receive updates after purchasing?
-<span>+</span>
-</div>
-
-<div class="answer">
-Customers receive access to updates and improvements according to the product purchased. We continuously work on improving reliability, compatibility, and overall user experience.
-</div>
-
-</div>
-
-
-
-<div class="faq">
-
-<div class="question">
-Do you provide customer support?
-<span>+</span>
-</div>
-
-<div class="answer">
-Yes. Razor provides customer support through our official Discord server. Our team can assist with purchase questions, product information, troubleshooting, and general support requests.
-</div>
-
-</div>
-
-
-
-<div class="faq">
-
-<div class="question">
-How long does support take to respond?
-<span>+</span>
-</div>
-
-<div class="answer">
-Response times depend on current support volume and availability. We aim to respond as quickly as possible, normally within an hour of ticket opening.
-</div>
-
-</div>
-
-
-
-<div class="faq">
-
-<div class="question">
-Can I transfer my purchase to another account or device?
-<span>+</span>
-</div>
-
-<div class="answer">
-Purchase transferring between devices is prohibitted.
-</div>
-
-</div>
-
-
-
-<div class="faq">
-
-<div class="question">
-Are purchases refundable?
-<span>+</span>
-</div>
-
-<div class="answer">
-Refund eligibility depends on the circumstances of the purchase and whether the product has already been delivered or used. Please review our Terms of Service for complete information regarding refunds and purchases.
-</div>
-
-</div>
-
-
-
-<div class="faq">
-
-<div class="question">
-Can I try a product before purchasing?
-<span>+</span>
-</div>
-
-<div class="answer">
-Trials for products are not available due to the nature of our products.
-</div>
-
-</div>
-
-
-
-<div class="faq">
-
-<div class="question">
-Is my information secure?
-<span>+</span>
-</div>
-
-<div class="answer">
-Razor takes customer privacy and security seriously. We only collect information necessary to provide our services and maintain a reliable customer experience.
-</div>
-
-</div>
-
-
-
-<div class="faq">
-
-<div class="question">
-Where can I get support?
-<span>+</span>
-</div>
-
-<div class="answer">
-Our official support channel is Discord. This is the fastest and most reliable way to contact the Razor team regarding products, purchases, and assistance.
-</div>
-
-</div>
-
-
-
-</section>
-
-
-
-<script>
-
-
-function createParticles(){
-
-let container=document.getElementById("particles");
-
-
-for(let i=0;i<60;i++){
-
-let p=document.createElement("div");
-
-p.className="particle";
-
-p.style.left=Math.random()*100+"%";
-
-p.style.animationDelay=Math.random()*15+"s";
-
-p.style.animationDuration=(10+Math.random()*10)+"s";
-
-
-container.appendChild(p);
-
-}
-
-}
-
-
-createParticles();
-
-
-
-document.querySelectorAll(".faq").forEach(item=>{
-
-
-item.querySelector(".question").onclick=()=>{
-
-
-item.classList.toggle("active");
-
-
-};
-
-
-});
-
-
-
-</script>
-
-
-<script src="navbar.js"></script>
-
-
+  </main>
+
+  <div data-site-footer></div>
+
+  <script type="module">
+    const input = document.getElementById("faq-q");
+    const items = [...document.querySelectorAll(".qa")];
+    const groups = [...document.querySelectorAll(".group")];
+    const noHits = document.getElementById("no-hits");
+
+    input.addEventListener("input", () => {
+      const t = input.value.trim().toLowerCase();
+      let hits = 0;
+      items.forEach((qa) => {
+        const match = !t || qa.textContent.toLowerCase().includes(t);
+        qa.hidden = !match;
+        if (match) hits++;
+        if (t && match) qa.open = true;
+      });
+      groups.forEach((g) => { g.hidden = !g.querySelector(".qa:not([hidden])"); });
+      noHits.hidden = hits > 0;
+    });
+
+    // Open a question linked by hash, e.g. faq.html#policies
+    if (location.hash) {
+      const g = document.querySelector(location.hash);
+      if (g && g.classList.contains("group")) g.querySelector(".qa").open = true;
+    }
+  </script>
 </body>
 </html>

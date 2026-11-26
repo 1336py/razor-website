@@ -4,11 +4,13 @@
     "title": "Razor Permanent HWID Spoofer",
     "subtitle": "Maximum Security",
     "description": "Permanent HWID spoofing with frequent updates.",
-    "images": [ "images/abc123.png", "images/perm menu.png" ],
+    "images": [
+      "images/opt/abc123.webp",
+      "images/opt/perm-menu.webp"
+    ],
     "startingPrice": 25.99,
     "category": "Spoofers",
     "featured": false,
-
     "variants": [
       {
         "name": "One-Time (48h)",
@@ -19,49 +21,49 @@
         "price": 45.99
       }
     ],
-
     "rating": 5,
     "related": [
       "temp",
       "boost"
     ]
   },
-
   {
     "id": "unban",
     "title": "Account Unban Method",
     "subtitle": "Complete Access",
     "description": "1-time purchase working for any game, forever.",
-    "images": [ "images/tony.png", "images/unban.png", "images/unban email.png" ],
+    "images": [
+      "images/opt/tony.webp",
+      "images/opt/unban.webp",
+      "images/opt/unban-email.webp"
+    ],
     "startingPrice": 24.99,
     "category": "Extra",
     "featured": true,
-
     "variants": [
       {
         "name": "Lifetime",
         "price": 24.99
       }
     ],
-
     "rating": 5,
     "related": [
       "spoofer",
-      "unban"
+      "temp"
     ]
   },
-
-
   {
     "id": "faithless",
     "title": "Faithless AI Aim 2.0",
     "subtitle": "AI Assistance",
     "description": "Computer vision powered aiming solution.",
-    "images": [ "images/faithless new.png", "images/faithasd.png" ],
+    "images": [
+      "images/opt/faithless-new.webp",
+      "images/opt/faithasd.webp"
+    ],
     "startingPrice": 4.99,
     "category": "AI",
     "featured": true,
-
     "variants": [
       {
         "name": "3 Days",
@@ -80,7 +82,6 @@
         "price": 25.99
       }
     ],
-
     "rating": 5,
     "related": [
       "boost",
@@ -92,22 +93,23 @@
     "title": "Discord Booster Rewards",
     "subtitle": "Grants access.",
     "description": "Private server with wide array of cheats, spoofers, and many other things.",
-    "images": [ "images/booster.png", "images/booster1.png" ],
-    "startingPrice": 0.00,
+    "images": [
+      "images/opt/booster.webp",
+      "images/opt/booster1.webp"
+    ],
+    "startingPrice": 0.0,
     "category": "Extra",
     "featured": false,
-
     "variants": [
       {
-        "name":"Monthly | Boost the Discord Server Twice",
-        "price": 0.00
+        "name": "Monthly | Boost the Discord Server Twice",
+        "price": 0.0
       },
       {
         "name": "Lifetime",
         "price": 7.99
       }
     ],
-
     "rating": 5,
     "related": [
       "unban",
@@ -119,14 +121,16 @@
     "title": "Razor Temporary HWID Spoofer",
     "subtitle": "One-click temporary solution.",
     "description": "Temporary solution designed for cheating.",
-    "images": [ "images/bibi.png", "images/temp.png" ],
+    "images": [
+      "images/opt/bibi.webp",
+      "images/opt/temp.webp"
+    ],
     "startingPrice": 6.99,
-    "category": "Extra",
+    "category": "Spoofers",
     "featured": true,
-
     "variants": [
       {
-        "name":"3 Days",
+        "name": "3 Days",
         "price": 6.99
       },
       {
@@ -138,7 +142,6 @@
         "price": 19.99
       }
     ],
-
     "rating": 5,
     "related": [
       "spoofer",
@@ -146,4 +149,3 @@
     ]
   }
 ]
-

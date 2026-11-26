@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex">
   <title>dogepoleon</title>
   <style>
     * {
@@ -47,7 +48,7 @@
       border-radius: 16px;
       text-align: center;
       color: #fff;
-      width: 300px;
+      width: min(300px, calc(100vw - 32px));
       backdrop-filter: blur(8px);
       box-shadow: 0 0 20px rgba(0,0,0,0.5);
     }
@@ -173,12 +174,13 @@
     <h1>dogepoleon</h1>
     <p>i made this page a year ago</p>
     <div class="icons">
-      <a href="https://discord.gg/nJdjVUmv" target="_blank">
+      <a href="https://discord.gg/nJdjVUmv" target="_blank" rel="noopener" aria-label="Discord">
         <img src="assets/icons/discord.png" alt="Discord">
       </a>
-      <a href="https://github.com/1336py" target="_blank">
+      <a href="https://github.com/1336py" target="_blank" rel="noopener" aria-label="GitHub">
         <img src="assets/icons/github.png" alt="GitHub">
-      <a href="#" onclick="navigator.clipboard.writeText('LVmgZH3wJ94UqpR4yAHdeMUmKi544oR1mQ'); return false;">
+      </a>
+      <a href="#" id="ltc" aria-label="Copy Litecoin address" title="Copy Litecoin address">
         <img src="assets/icons/ltc white.png" alt="Litecoin">
       </a>
     </div>
@@ -205,6 +207,16 @@
       video.currentTime = 0;
       video.play().catch(e => console.log("Autoplay failed:", e));
     }, { once: true });
+
+    document.getElementById("ltc").addEventListener("click", (e) => {
+      e.preventDefault();
+      const a = e.currentTarget;
+      navigator.clipboard.writeText("LVmgZH3wJ94UqpR4yAHdeMUmKi544oR1mQ").then(() => {
+        a.title = "Copied!";
+        a.style.transform = "scale(1.2)";
+        setTimeout(() => { a.title = "Copy Litecoin address"; a.style.transform = ""; }, 1200);
+      });
+    });
 
     // Auto-hide after 10 seconds
     setTimeout(() => {
